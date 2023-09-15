@@ -1,0 +1,28 @@
+.users {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 250px);
+  grid-gap: 15px;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.user_header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.online {
+  padding: 2px 5px;
+  color: black;
+  background-color: #2fbf2a;
+  border-radius: 2px;
+}
+
+.user_photo {
+  max-height: 350px;
+  object-fit: contain;
+}

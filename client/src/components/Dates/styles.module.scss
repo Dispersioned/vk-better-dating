@@ -1,0 +1,28 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.users {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.header {
+  display: flex;
+  gap: 15px;
+}
+
+.images {
+  display: flex;
+  gap: 15px;
+}
+
+.story {
+}
+
+.story_media {
+  max-height: 350px;
+}

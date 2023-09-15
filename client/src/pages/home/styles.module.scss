@@ -1,0 +1,15 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 1600px;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.helper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}

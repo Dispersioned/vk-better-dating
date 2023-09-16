@@ -1,8 +1,7 @@
+import { useVkStore } from 'app/store/vk.store';
 import { Dates } from 'components/Dates';
 import { Likes } from 'components/likes';
-import { useEffect, useMemo, useState } from 'react';
-import { getDates, getLikes } from 'shared/api';
-import { IDates, IMyself } from 'shared/types';
+import { useEffect, useMemo } from 'react';
 
 import styles from './styles.module.scss';
 
@@ -11,22 +10,14 @@ type DataProps = {
 };
 
 export function Data({ vktoken }: DataProps) {
-  const [myself, setMyself] = useState<IMyself | null>(null);
-  const [dates, setDates] = useState<IDates | null>(null);
+  const { isLoading, error, fetch, myself, dates } = useVkStore();
 
   useEffect(() => {
-    async function updateData() {
-      if (!myself) {
-        const myselfApi = await getLikes(vktoken);
-        if (myselfApi) setMyself(myselfApi);
-      }
-      if (!dates) {
-        const datesApi = await getDates(vktoken);
-        if (datesApi) setDates(datesApi);
-      }
+    async function fetchData() {
+      await fetch();
     }
 
-    updateData();
+    if (!isLoading) fetchData();
   }, []);
 
   const matches = useMemo(() => {

@@ -40,6 +40,7 @@ export function Data({ vktoken }: DataProps) {
       personBlurredPhotoUrls.forEach((url) => {
         if (peopleWhoLikedMePhotoUrls.includes(url)) {
           console.log('MATCH');
+          console.log('url', url);
         }
       });
     });

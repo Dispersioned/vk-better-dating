@@ -32,7 +32,7 @@ export function PrivateRoute({ guard }: PrivateRouteProps) {
     setHasAccess(true);
   }, [setHasAccess, guard, user, location.state, navigate]);
 
-  if (!user) return <Navigate to="login" />;
+  if (!user) return <Navigate to="auth" />;
 
   if (!hasAccess) return <BaseLayout />;
 

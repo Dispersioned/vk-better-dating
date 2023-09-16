@@ -28,11 +28,12 @@ export class DataBase {
     this.db = {
       collections: {},
     };
-    await writeFile(this.dbPath, JSON.stringify(this.db));
+    await this.save();
   };
 
   save = async () => {
     await writeFile(this.dbPath, JSON.stringify(this.db));
+    console.log('database saved');
   };
 
   dbExists = () => {
@@ -68,15 +69,21 @@ export class DataBase {
     function insert(newItem) {
       if (items.find((item) => item.id === newItem.id)) {
         console.log(
-          `can not insert item with id: "${newItem.id}" into "${name}" collection. Item with this id already exists`,
-          newItem
+          `can not insert item with id: "${newItem.id}" into "${name}" collection. Item with this id already exists`
         );
         return;
-      }
+      } else items.push(newItem);
     }
 
-    function insertMany(newItems) {
-      newItems.forEach(insert);
+    function insertUnique(newItems) {
+      const ids = items.map((item) => item.id);
+      const uniqueItems = [];
+      newItems.forEach((item) => {
+        if (!ids.includes(item.id)) uniqueItems.push(item);
+      });
+
+      uniqueItems.forEach(insert);
+      return uniqueItems;
     }
 
     const collection = {
@@ -84,7 +91,7 @@ export class DataBase {
       findAll,
       findById,
       insert,
-      insertMany,
+      insertUnique,
     };
 
     return collection;

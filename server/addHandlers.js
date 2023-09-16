@@ -7,11 +7,15 @@ export function addHandlers(app) {
     const { vktoken, count } = req.body;
     try {
       const recommendations = await getRecommendations(vktoken, count || 100);
+
+      const recommendationsCollection = db.getCollection('recommendations');
+      const uniqueItems = recommendationsCollection.insertUnique(recommendations.users);
+      if (uniqueItems.length) await db.save();
+
       return res.json(recommendations);
     } catch (e) {
       return res.status(404).json(e);
     }
-    return res.json(recommendations);
   });
 
   app.post('/likes', async (req, res) => {

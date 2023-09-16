@@ -1,10 +1,13 @@
 import express from 'express';
 import { addHandlers } from './addHandlers.js';
 import { port } from './config/consts.js';
-import { initCollector } from './modules/collect.js';
+import { db } from './modules/db.js';
 
-function start() {
-  initCollector();
+async function start() {
+  await db.init();
+  db.createCollection('recommendations');
+  db.createCollection('likes');
+  await db.save();
 
   const app = express();
 

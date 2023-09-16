@@ -1,3 +1,4 @@
+import { db } from './modules/db.js';
 import { getLikes } from './vk-api/getLikes.js';
 import { getRecommendations } from './vk-api/getRecommendations.js';
 

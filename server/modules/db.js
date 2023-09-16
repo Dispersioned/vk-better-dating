@@ -46,13 +46,16 @@ export class DataBase {
       return;
     }
 
-    this.db.collections[name] = [];
+    this.db.collections[name] = {
+      items: [],
+    };
 
     return this.getCollection(name);
   };
 
   getCollection = (name) => {
-    const items = this.db.collections[name];
+    const collection = this.db.collections[name];
+    const items = collection.items;
 
     if (!items) {
       throw new Error(`collection "${name}" does not exist`);
@@ -86,15 +89,15 @@ export class DataBase {
       return uniqueItems;
     }
 
-    const collection = {
-      items,
+    const createdCollection = {
+      ...collection,
       findAll,
       findById,
       insert,
       insertUnique,
     };
 
-    return collection;
+    return createdCollection;
   };
 }
 

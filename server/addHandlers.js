@@ -22,8 +22,30 @@ export function addHandlers(app) {
     const { vktoken } = req.body;
     try {
       const likes = await getLikes(vktoken);
-      return res.json(likes);
+
+      function serializeToDb(likes) {
+        const copy = {
+          ...likes,
+          users: [...likes.users],
+        };
+
+        copy.users = copy.users.map((user) => ({
+          ...user,
+          id: user.extra.hash,
+        }));
+
+        return copy;
+      }
+
+      const serialized = serializeToDb(likes);
+      const likesCollection = db.getCollection('likes');
+      const uniqueItems = likesCollection.insertUnique(serialized.users);
+
+      if (uniqueItems.length) await db.save();
+
+      return res.json(serialized);
     } catch (e) {
+      console.log(e);
       return res.status(404).json(e);
     }
   });

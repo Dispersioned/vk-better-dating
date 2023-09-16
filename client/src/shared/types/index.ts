@@ -79,7 +79,10 @@ export type IDateUser = {
   };
   form_extension: {
     // todo
-    artists: any[];
+    artists: {
+      id: string;
+      name: string;
+    }[];
   };
   extra: {
     // понять в чем измеряется

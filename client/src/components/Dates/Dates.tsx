@@ -23,6 +23,30 @@ export function Dates({ dates }: DatesProps) {
                 {user.name} {user.age}
               </Typography>
               <OnlineStatus online={user.is_online} lastOnline={user.last_active_at} />
+              <Typography>{user.extra.distance} метров от вас</Typography>
+            </div>
+            <div>
+              {user.is_verify && <Typography>Подтвержденный аккаунт</Typography>}
+              {user.is_deleted && <Typography color="error">Удаленный аккаунт</Typography>}
+              {user.is_blocked && <Typography color="warning">Вы заблокировали этот аккаунт</Typography>}
+              {user.is_premium_enabled && <Typography color="info">Премиум акаунт</Typography>}
+              <Typography>Работа: {user.form.work}</Typography>
+              <Typography>Образование: {user.form.education}</Typography>
+              <Typography>О себе: {user.form.about}</Typography>
+              <Typography>Знак зодиака: {user.zodiac_sign_id}</Typography>
+              <Typography>Интересы: {user.form.interests.join(', ')}</Typography>
+              <Typography>Рост: {user.form.height}</Typography>
+              <Typography>Музыка: {user.form.music}</Typography>
+              <Typography>Фильмы: {user.form.movies}</Typography>
+              <Typography>Книги: {user.form.books}</Typography>
+              <Typography>Отношение к спорту: {user.form.sport}</Typography>
+              <Typography>Цель знакомства: {user.form.target}</Typography>
+              <Typography>Отношение к семье: {user.form.family}</Typography>
+              <Typography>Лейблы: {user.form.labels.join(', ')}</Typography>
+              <Typography>Исполнители (парс вк id): {user.form.artists.join(', ')}</Typography>
+              <Typography>
+                Исполнители (доп): {user.form_extension.artists.map((artist) => artist.name).join(', ')}
+              </Typography>
             </div>
             <div className={styles.images}>
               {user.stories.map((story) => (

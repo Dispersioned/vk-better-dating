@@ -1,6 +1,7 @@
 import { Typography } from '@mui/material';
 import { OnlineStatus } from 'components/OnlineStatus';
 import { format } from 'date-fns';
+import { FAMILY_STATE } from 'shared/config/vk';
 import { IDates } from 'shared/types';
 
 import styles from './styles.module.scss';
@@ -32,6 +33,9 @@ export function Dates({ dates }: DatesProps) {
               {user.is_premium_enabled && <Typography color="info">Премиум акаунт</Typography>}
               <Typography>Работа: {user.form.work}</Typography>
               <Typography>Образование: {user.form.education}</Typography>
+              <Typography>
+                Положение: {user.form.family === 'free' ? FAMILY_STATE[user.form.family] : user.form.family}
+              </Typography>
               <Typography>О себе: {user.form.about}</Typography>
               <Typography>Знак зодиака: {user.zodiac_sign_id}</Typography>
               <Typography>Интересы: {user.form.interests.join(', ')}</Typography>
@@ -41,7 +45,6 @@ export function Dates({ dates }: DatesProps) {
               <Typography>Книги: {user.form.books}</Typography>
               <Typography>Отношение к спорту: {user.form.sport}</Typography>
               <Typography>Цель знакомства: {user.form.target}</Typography>
-              <Typography>Отношение к семье: {user.form.family}</Typography>
               <Typography>Лейблы: {user.form.labels.join(', ')}</Typography>
               <Typography>Исполнители (парс вк id): {user.form.artists.join(', ')}</Typography>
               <Typography>

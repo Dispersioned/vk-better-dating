@@ -1,6 +1,7 @@
 import { Typography } from '@mui/material';
 import { useAuthStore } from 'app/store/auth.store';
 import whereRequestIcon from 'assets/whereRequest.png';
+import { BaseLayout } from 'components/base/base-layout';
 import { Data } from 'components/data';
 
 import styles from './styles.module.scss';
@@ -13,7 +14,7 @@ export function Home() {
   const vktoken = authData.token;
 
   return (
-    <div className={styles.page}>
+    <BaseLayout>
       {vktoken ? (
         <Data vktoken={vktoken} />
       ) : (
@@ -27,6 +28,6 @@ export function Home() {
           <img src={whereRequestIcon} alt="" />
         </div>
       )}
-    </div>
+    </BaseLayout>
   );
 }

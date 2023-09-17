@@ -1,5 +1,6 @@
-import { Breakpoint, Typography } from '@mui/material';
+import { Breakpoint } from '@mui/material';
 import { CSSProperties, PropsWithChildren } from 'react';
+import { Header } from 'widgets/header';
 
 import { Layout, Main } from '../styles/BaseLayout';
 
@@ -11,9 +12,7 @@ type BaseLayoutProps = PropsWithChildren<{
 export function BaseLayout({ children, size = 'xl', containerStyle }: BaseLayoutProps) {
   return (
     <Layout>
-      <header>
-        <Typography>header</Typography>
-      </header>
+      <Header />
       <Main component="main" maxWidth={size} style={containerStyle}>
         {children}
       </Main>

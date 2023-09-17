@@ -7,7 +7,7 @@ type VkStore = {
   error: string | null;
   setError: (error: string | null) => void;
   authData: IVkAuth | null;
-  setAuthData: (authData: IVkAuth) => void;
+  setAuthData: (authData: IVkAuth | null) => void;
 };
 
 export const useAuthStore = create<VkStore>((set, get) => ({

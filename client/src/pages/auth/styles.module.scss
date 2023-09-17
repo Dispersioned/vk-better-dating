@@ -20,6 +20,7 @@
   flex-direction: column;
   gap: 15px;
   margin: 15px 0;
+  margin-bottom: 200px;
 }
 
 .form {
@@ -27,4 +28,20 @@
   grid-template-columns: 1fr fit-content(100%);
   align-items: center;
   gap: 15px;
+}
+
+.instruction_image {
+  margin: 10px 0;
+}
+
+.instruction_script {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.instruction_script_text {
+  display: flex;
+  gap: 15px;
+  align-items: center;
 }

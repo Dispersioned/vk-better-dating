@@ -43,7 +43,7 @@ export function Form() {
           Поехали
         </Button>
       </div>
-      {error && <Typography>{error}</Typography>}
+      {error && <Typography>{error}. Если ты видишь эту ошибку - параметры неправильные</Typography>}
     </div>
   );
 }

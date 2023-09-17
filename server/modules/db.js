@@ -58,7 +58,8 @@ export class DataBase {
     const items = collection.items;
 
     if (!items) {
-      throw new Error(`collection "${name}" does not exist`);
+      console.log(`collection "${name}" does not exist`);
+      return null;
     }
 
     function findAll() {

@@ -23,15 +23,15 @@ export function Data({ vktoken }: DataProps) {
   const matches = useMemo(() => {
     if (!myself || !dates) return [];
     const peopleWhoLikedMePhotoUrls = myself.users.map((user) => user.photo_url);
-    console.log('peopleWhoLikedMePhotoUrls', peopleWhoLikedMePhotoUrls);
+    // console.log('peopleWhoLikedMePhotoUrls', peopleWhoLikedMePhotoUrls);
 
     dates.users.forEach((recommendation) => {
       const personBlurredPhotoUrls = recommendation.stories.map((story) => story.blur_url);
 
       personBlurredPhotoUrls.forEach((url) => {
         if (peopleWhoLikedMePhotoUrls.includes(url)) {
-          console.log('MATCH');
-          console.log('url', url);
+          // console.log('MATCH');
+          // console.log('url', url);
         }
       });
     });

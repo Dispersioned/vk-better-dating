@@ -1,11 +1,11 @@
-# VK Dating custom client
+# VK Better Dating client
 
-## Setup
-1. todo
-
-## Remarks
-Server is needed to avoid CORS in vk api requests
+## Установка
+1. todo как установить ноду, проект...
 
 ## Todo
-replace vkid 241538483 with props
-show people whom i liked and if they liked me
+поменять мой vk dating id 241538483 на спаршенный от vp auth params
+показывать людей, которые лайкнули меня
+показывать людей, которых лайкнул я
+"copy" skills
+фильтры, умные фильтры

@@ -5,9 +5,11 @@ import { db } from './modules/db.js';
 
 async function start() {
   await db.init();
-  db.createCollection('recommendations');
-  db.createCollection('likes');
-  await db.save();
+  const recommendationsCollection = db.getCollection('recommendations');
+  if (!recommendationsCollection) db.createCollection('recommendations');
+  const likesCollection = db.getCollection('likes');
+  if (!likesCollection) db.createCollection('likes');
+  if (!recommendationsCollection || !likesCollection) await db.save();
 
   const app = express();
 

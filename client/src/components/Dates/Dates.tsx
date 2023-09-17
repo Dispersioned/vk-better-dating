@@ -26,6 +26,7 @@ export function Dates({ dates }: DatesProps) {
               </Typography>
               <OnlineStatus online={user.is_online} lastOnline={user.last_active_at} />
               <Typography>{user.extra.distance} метров от вас</Typography>
+              <Typography>ID: {user.id}</Typography>
             </div>
             <div>
               {user.is_verify && <Typography>Подтвержденный аккаунт</Typography>}

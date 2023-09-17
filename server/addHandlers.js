@@ -1,8 +1,19 @@
 import { db } from './modules/db.js';
+import { authVkDating } from './vk-api/authVkDating.js';
 import { getLikes } from './vk-api/getLikes.js';
 import { getRecommendations } from './vk-api/getRecommendations.js';
 
 export function addHandlers(app) {
+  app.post('/auth-vk-dating', async (req, res) => {
+    const { authParams } = req.body;
+    try {
+      const data = await authVkDating(authParams);
+      return res.json(data);
+    } catch (e) {
+      return res.status(404).json(e);
+    }
+  });
+
   app.post('/recommendations', async (req, res) => {
     const { vktoken, count } = req.body;
     try {

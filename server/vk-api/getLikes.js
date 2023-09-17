@@ -1,9 +1,6 @@
 import { readStream } from '../utils/readStream.js';
 
 export async function getLikes({ token, lovinaAgent, sessionKey }) {
-  console.log('token', token);
-  console.log('lovinaAgent', lovinaAgent);
-  console.log('sessionKey', sessionKey);
   const res = await fetch('https://dating.vk-apps.ru/api/dating.getLikeToYouUsers', {
     headers: {
       accept: 'application/json, text/plain, */*',

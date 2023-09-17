@@ -5,7 +5,7 @@ type TokenStore = {
   vkparams: string;
   setParams: (vkparams: string) => void;
   vktoken: string;
-  setToken: (vktoken: string) => void;
+  setVkToken: (vktoken: string) => void;
 };
 
 export const useTokenStore = create<TokenStore>()(
@@ -14,7 +14,7 @@ export const useTokenStore = create<TokenStore>()(
       vkparams: '',
       setParams: (vkparams) => set((state) => ({ vkparams })),
       vktoken: '',
-      setToken: (vktoken) => set((state) => ({ vktoken })),
+      setVkToken: (vktoken) => set((state) => ({ vktoken })),
     }),
     {
       name: 'token',

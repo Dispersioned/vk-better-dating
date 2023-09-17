@@ -6,10 +6,10 @@ import { Data } from 'components/data';
 import styles from './styles.module.scss';
 
 export function Home() {
-  const { vktoken, setToken } = useTokenStore();
+  const { vktoken, setVkToken } = useTokenStore();
   return (
     <div className={styles.page}>
-      <TextField label="VK API TOKEN" value={vktoken} onChange={(e) => setToken(e.target.value)} fullWidth />
+      <TextField label="VK API TOKEN" value={vktoken} onChange={(e) => setVkToken(e.target.value)} fullWidth />
       {vktoken ? (
         <Data vktoken={vktoken} />
       ) : (

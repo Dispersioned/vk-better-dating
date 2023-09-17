@@ -1,10 +1,12 @@
 import { getDates, getLikes } from 'shared/api';
-import { IDates, IMyself } from 'shared/types';
+import { IDates, IMyself, IVkAuth } from 'shared/types';
 import { create } from 'zustand';
 
 import { useTokenStore } from './token.store';
 
 type VkStore = {
+  authData: IVkAuth | null;
+  setAuthData: (authData: IVkAuth) => void;
   dates: IDates | null;
   myself: IMyself | null;
   setDates: (dates: IDates) => void;
@@ -17,6 +19,8 @@ type VkStore = {
 };
 
 export const useVkStore = create<VkStore>((set, get) => ({
+  authData: null,
+  setAuthData: (authData) => set((state) => ({ authData })),
   dates: null,
   myself: null,
   isLoading: false,

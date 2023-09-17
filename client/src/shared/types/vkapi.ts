@@ -19,7 +19,7 @@ export type IMyself = {
 };
 
 // todo
-export type IZodiac = 'capricornus' | string;
+export type IZodiac = 'leo' | 'capricornus' | string;
 export type IInterests = 'detectives' | 'coffee' | 'music_lover' | string;
 export type ISports = 'keep_in_shape' | string;
 export type IDatingTarget = 'serious_date' | string;
@@ -46,6 +46,40 @@ export type IStoryVideo = IStoryBase & {
 
 export type IStory = IStoryImage | IStoryVideo;
 
+export type IDateUserForm = {
+  about: string;
+  work: string;
+  education: string;
+  music: string;
+  movies: string;
+  books: string;
+  // в сантиметрах
+  height: number;
+  sport: ISports;
+  target: IDatingTarget;
+  family: IFamily;
+  interests: IInterests[];
+  // todo
+  labels: any[];
+  // todo
+  artists: any[];
+};
+
+export type IDateUserFormExtension = {
+  // todo
+  artists: {
+    id: string;
+    name: string;
+  }[];
+};
+
+export type IDateUserExtra = {
+  // понять в чем измеряется
+  distance: number;
+  hash: string;
+  meta: string;
+};
+
 export type IDateUser = {
   // mapped id of vk.dates microservice
   id: number;
@@ -59,37 +93,9 @@ export type IDateUser = {
   is_premium_enabled: boolean;
   last_active_at: string;
   stories: IStory[];
-  form: {
-    about: string;
-    work: string;
-    education: string;
-    music: string;
-    movies: string;
-    books: string;
-    // в сантиметрах
-    height: number;
-    sport: ISports;
-    target: IDatingTarget;
-    family: IFamily;
-    interests: IInterests[];
-    // todo
-    labels: any[];
-    // todo
-    artists: any[];
-  };
-  form_extension: {
-    // todo
-    artists: {
-      id: string;
-      name: string;
-    }[];
-  };
-  extra: {
-    // понять в чем измеряется
-    distance: number;
-    hash: string;
-    meta: string;
-  };
+  form: IDateUserForm;
+  form_extension: IDateUserFormExtension;
+  extra: IDateUserExtra;
   zodiac_sign_id: IZodiac;
 };
 
@@ -99,4 +105,67 @@ export type IDates = {
   remaining: number;
   server_time: string;
   users: IDateUser[];
+};
+
+export type IVkAuth = {
+  client_features: Record<string, boolean>;
+  is_position_required: boolean;
+  is_service_panel_enabled: boolean;
+  report_info: {
+    block_expires_at: string;
+    bad_stories: unknown[];
+    bad_fields: unknown[];
+    not_filled_details: unknown[];
+  };
+  server_time: string;
+  stream_args: string;
+  token: string;
+  user: {
+    id: number;
+    vk_id: number;
+    name: string;
+    stories: IStory[];
+    sex: IUserSex;
+    birth: string;
+    age: number;
+    is_verify: boolean;
+    is_profile_filled: boolean;
+    is_deleted: boolean;
+    is_blocked: boolean;
+    is_online: boolean;
+    attention_count: number;
+    super_like_count: number;
+    is_activated: true;
+    last_active_at: string;
+    fullness: number;
+    time_zone_offset_seconds: number;
+    forever_deleted_at: string;
+    form: IDateUserForm;
+    form_extension: IDateUserFormExtension;
+    setting: {
+      age_min: number;
+      age_max: number;
+      distance: number;
+      sex: IUserSex;
+      // todo
+      purpose: 'love' | string;
+      is_profile_hidden: boolean;
+      is_age_hidden: boolean;
+      is_distance_hidden: boolean;
+      is_premium_hidden: boolean;
+      is_badge_enabled: boolean;
+      is_ret_widget_enabled: boolean;
+    };
+    zodiac_sign_id: IZodiac;
+    created_at: string;
+    // todo
+    location_ids: unknown[];
+  };
+  verification_info: {
+    // todo
+    status: 'ready' | string;
+    next_attempt_at: string;
+    // todo
+    verification_pose_id: 'victory' | string;
+  };
 };

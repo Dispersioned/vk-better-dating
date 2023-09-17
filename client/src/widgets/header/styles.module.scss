@@ -1,0 +1,27 @@
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo_wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  user-select: none;
+}
+
+.logo {
+  width: 45px;
+  height: 45px;
+}
+
+.header {
+  padding: 5px 0;
+}
+
+.header_aside {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}

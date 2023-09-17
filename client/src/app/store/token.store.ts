@@ -2,15 +2,15 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 type TokenStore = {
-  vkparams: string;
-  setParams: (vkparams: string) => void;
+  vkparams: string | null;
+  setParams: (vkparams: string | null) => void;
 };
 
 export const useTokenStore = create<TokenStore>()(
   persist(
     (set) => ({
-      vkparams: '',
-      setParams: (vkparams) => set((state) => ({ vkparams })),
+      vkparams: null,
+      setParams: (vkparams) => set({ vkparams }),
     }),
     {
       name: 'token',

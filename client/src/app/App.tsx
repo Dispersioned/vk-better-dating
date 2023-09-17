@@ -8,14 +8,14 @@ import './styles/index.scss';
 
 export function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <StyledEngineProvider injectFirst>
-        <AuthProvider>
-          <BrowserRouter>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <StyledEngineProvider injectFirst>
+          <AuthProvider>
             <AppRouter />
-          </BrowserRouter>
-        </AuthProvider>
-      </StyledEngineProvider>
-    </ThemeProvider>
+          </AuthProvider>
+        </StyledEngineProvider>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }

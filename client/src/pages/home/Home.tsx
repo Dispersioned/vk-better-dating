@@ -12,8 +12,6 @@ export function Home() {
 
   const vktoken = authData.token;
 
-  console.log('vktoken', vktoken);
-
   return (
     <div className={styles.page}>
       {vktoken ? (

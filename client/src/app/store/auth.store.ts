@@ -12,9 +12,9 @@ type VkStore = {
 
 export const useAuthStore = create<VkStore>((set, get) => ({
   isLoading: false,
-  setIsLoading: (isLoading) => set((state) => ({ isLoading })),
+  setIsLoading: (isLoading) => set({ isLoading }),
   error: null,
-  setError: (error) => set((state) => ({ error })),
+  setError: (error) => set({ error }),
   authData: null,
-  setAuthData: (authData) => set((state) => ({ authData })),
+  setAuthData: (authData) => set({ authData }),
 }));

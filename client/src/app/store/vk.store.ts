@@ -2,34 +2,30 @@ import { getDates, getLikes } from 'shared/api';
 import { IDates, IMyself, IVkAuth } from 'shared/types';
 import { create } from 'zustand';
 
+import { useAuthStore } from './auth.store';
 import { useTokenStore } from './token.store';
 
 type VkStore = {
-  authData: IVkAuth | null;
-  setAuthData: (authData: IVkAuth) => void;
-  dates: IDates | null;
-  myself: IMyself | null;
-  setDates: (dates: IDates) => void;
-  setMyself: (myself: IMyself) => void;
   isLoading: boolean;
   error: unknown | null;
+  dates: IDates | null;
+  setDates: (dates: IDates) => void;
+  myself: IMyself | null;
+  setMyself: (myself: IMyself) => void;
   fetch: () => void;
-  // canMatch: sing;
-  // setToken: (vktotrken: string) => void;
 };
 
 export const useVkStore = create<VkStore>((set, get) => ({
-  authData: null,
-  setAuthData: (authData) => set((state) => ({ authData })),
-  dates: null,
-  myself: null,
   isLoading: false,
   error: null,
+  dates: null,
+  myself: null,
   setDates: (dates) => set({ dates }),
   setMyself: (myself) => set({ myself }),
   fetch: async () => {
+    if (get().isLoading) return;
     set({ isLoading: true });
-    const vktoken = useTokenStore.getState().vktoken;
+    const vktoken = useAuthStore.getState().authData!.token;
 
     try {
       const myselfApi = await getLikes(vktoken);

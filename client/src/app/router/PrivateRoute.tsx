@@ -1,3 +1,4 @@
+import { useAuthStore } from 'app/store/auth.store';
 import { BaseLayout } from 'components/base/base-layout';
 import { useLayoutEffect, useState } from 'react';
 import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
@@ -13,9 +14,8 @@ export function PrivateRoute({ guard }: PrivateRouteProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // const { notifyError } = useActions()
-  // const user = useTypeSelector((state) => state.auth.user)
-  const user = null;
+  const { authData } = useAuthStore();
+  const user = authData;
 
   const [hasAccess, setHasAccess] = useState(false);
 
@@ -26,7 +26,6 @@ export function PrivateRoute({ guard }: PrivateRouteProps) {
       return;
     }
 
-    // notifyError(t('error/no access'))
     const from = (location.state as IReactRouterLocationState)?.from;
     navigate(from || ROUTES.home);
     setHasAccess(true);

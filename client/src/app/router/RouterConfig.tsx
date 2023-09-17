@@ -10,11 +10,6 @@ export const ROUTES = {
 export const ROUTING: IRoute[] = [
   {
     private: true,
-    element: <div>private</div>,
-    path: '/private',
-  },
-  {
-    private: true,
     element: <Home />,
     path: ROUTES.home,
   },

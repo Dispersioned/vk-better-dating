@@ -1,15 +1,21 @@
-import { TextField, Typography } from '@mui/material';
-import { useTokenStore } from 'app/store/token.store';
+import { Typography } from '@mui/material';
+import { useAuthStore } from 'app/store/auth.store';
 import whereRequestIcon from 'assets/whereRequest.png';
 import { Data } from 'components/data';
 
 import styles from './styles.module.scss';
 
 export function Home() {
-  const { vktoken, setVkToken } = useTokenStore();
+  const { authData } = useAuthStore();
+
+  if (!authData) return null;
+
+  const vktoken = authData.token;
+
+  console.log('vktoken', vktoken);
+
   return (
     <div className={styles.page}>
-      <TextField label="VK API TOKEN" value={vktoken} onChange={(e) => setVkToken(e.target.value)} fullWidth />
       {vktoken ? (
         <Data vktoken={vktoken} />
       ) : (

@@ -1,1 +1,3 @@
-export type IUserAuth = never
+import { IVkAuth } from './vkapi';
+
+export type IUserAuth = IVkAuth;

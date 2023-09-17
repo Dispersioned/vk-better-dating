@@ -1,6 +1,6 @@
 import { Button, TextField, Typography } from '@mui/material';
+import { useAuthStore } from 'app/store/auth.store';
 import { useTokenStore } from 'app/store/token.store';
-import { useVkStore } from 'app/store/vk.store';
 import { useState } from 'react';
 import { login } from 'shared/api';
 import { IAxiosError } from 'shared/types';
@@ -13,7 +13,7 @@ export function Form() {
 
   const canSubmit = params.length > 0;
 
-  const { setAuthData } = useVkStore();
+  const { setAuthData } = useAuthStore();
   const { setParams: setVkParams } = useTokenStore();
 
   const onSubmit = async () => {

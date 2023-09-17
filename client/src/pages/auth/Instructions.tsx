@@ -1,5 +1,7 @@
-import { List, ListItem, ListItemText, Typography } from '@mui/material';
+import { Button, List, ListItem, ListItemText, Typography } from '@mui/material';
 import authImg from 'assets/img/auth.png';
+import { toast } from 'react-toastify';
+import { copyToClipboard } from 'shared/utils/copyToClipboard';
 
 import styles from './styles.module.scss';
 
@@ -33,6 +35,11 @@ export function Instructions() {
   get();
 })();`;
 
+  const onCopyScript = () => {
+    copyToClipboard(script);
+    toast('Скопировано!', { type: 'success', position: 'bottom-center' });
+  };
+
   return (
     <List disablePadding>
       <ListItem>
@@ -52,13 +59,14 @@ export function Instructions() {
           3. В верхней панели DevTools перейдите на вкладку <i>Консоль (Console)</i>
         </ListItemText>
       </ListItem>
-      <ListItem>
-        <ListItemText>
-          3. Вставьте туда следующий скрипт:{' '}
-          <Typography component="pre" fontFamily="monospace" fontSize={17}>
-            {script}
-          </Typography>
-        </ListItemText>
+      <ListItem className={styles.instruction_script}>
+        <div className={styles.instruction_script_text}>
+          <ListItemText>3. Вставьте туда следующий скрипт:</ListItemText>
+          <Button onClick={onCopyScript}>нажми, чтобы скопировать</Button>
+        </div>
+        <Typography component="pre" fontFamily="monospace" fontSize={17}>
+          {script}
+        </Typography>
       </ListItem>
       <ListItem>
         <ListItemText>

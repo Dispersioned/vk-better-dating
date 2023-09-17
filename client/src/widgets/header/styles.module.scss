@@ -18,3 +18,9 @@
 .header {
   padding: 5px 0;
 }
+
+.header_aside {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}

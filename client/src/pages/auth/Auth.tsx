@@ -100,13 +100,6 @@ export function Auth() {
             </Button>
           </>
         )}
-        <Typography>Version 0.1</Typography>
-        <Typography>
-          Created by{' '}
-          <Link href="https://t.me/dispersioned" target="_blank">
-            Dispersioned
-          </Link>
-        </Typography>
       </div>
     </BaseLayout>
   );

@@ -1,6 +1,7 @@
-import { Button, Container, Typography } from '@mui/material';
+import { Button, Container, Link, Typography } from '@mui/material';
 import { useAuthStore } from 'app/store/auth.store';
 import logoIcon from 'assets/icons/logo.svg';
+import { APP_VERSION } from 'shared/config/meta';
 
 import styles from './styles.module.scss';
 
@@ -17,7 +18,16 @@ export function Header() {
               Better Dating
             </Typography>
           </div>
-          {authData && <Button color="error">Выйти</Button>}
+          <div className={styles.header_aside}>
+            <Typography>version {APP_VERSION}</Typography>
+            <Typography>
+              Created by{' '}
+              <Link href="https://t.me/dispersioned" target="_blank">
+                Dispersioned
+              </Link>
+            </Typography>
+            {authData && <Button color="error">Выйти</Button>}
+          </div>
         </div>
       </Container>
     </header>

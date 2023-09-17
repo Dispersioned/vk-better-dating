@@ -1,12 +1,22 @@
 import { Button, Container, Link, Typography } from '@mui/material';
 import { useAuthStore } from 'app/store/auth.store';
+import { useTokenStore } from 'app/store/token.store';
+import { useVkStore } from 'app/store/vk.store';
 import logoIcon from 'assets/icons/logo.svg';
+import { useNavigate } from 'react-router-dom';
 import { APP_VERSION } from 'shared/config/meta';
 
 import styles from './styles.module.scss';
 
 export function Header() {
-  const authData = useAuthStore();
+  const navigate = useNavigate();
+  const { authData } = useAuthStore();
+  const { setParams } = useTokenStore();
+
+  const onLogout = () => {
+    setParams(null);
+    navigate('/auth');
+  };
 
   return (
     <header className={styles.header}>
@@ -26,7 +36,11 @@ export function Header() {
                 Dispersioned
               </Link>
             </Typography>
-            {authData && <Button color="error">Выйти</Button>}
+            {authData && (
+              <Button color="error" onClick={onLogout}>
+                Выйти
+              </Button>
+            )}
           </div>
         </div>
       </Container>

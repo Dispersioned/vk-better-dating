@@ -11,6 +11,9 @@ export const theme = createTheme({
     body1: {
       fontSize: 20,
     },
+    body2: {
+      color: '#fff',
+    },
     h4: {
       fontWeight: 500,
     },
@@ -24,6 +27,13 @@ export const theme = createTheme({
         root: {
           fontWeight: 600,
           padding: '7px 20px',
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          color: '#bbb',
         },
       },
     },

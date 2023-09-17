@@ -37,10 +37,10 @@ export function Form() {
           value={params}
           onChange={(e) => setParams(e.target.value)}
           size="small"
-          label="Введи параметры сюда"
+          label="Введи в меня свои параметры, семпай"
         />
         <Button disabled={!canSubmit} onClick={onSubmit}>
-          Погнали
+          Поехали
         </Button>
       </div>
       {error && <Typography>{error}</Typography>}

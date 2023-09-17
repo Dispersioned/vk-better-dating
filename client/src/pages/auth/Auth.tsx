@@ -50,8 +50,8 @@ export function Auth() {
               <List disablePadding>
                 <ListItem>
                   <ListItemText>
-                    1. Зайдите в ВК знакомства. Создайте аккаунт и <i>убедитесь что режим знакомств включен</i> (когда
-                    можно видеть и листать анкеты).
+                    1. Зайдите в ВК знакомства. <i>Создайте аккаунт</i>, если у вас его нет и{' '}
+                    <i>убедитесь что режим знакомств включен</i> (анкеты видно и их можно листать).
                   </ListItemText>
                 </ListItem>
                 <ListItem>
@@ -63,7 +63,7 @@ export function Auth() {
                 </ListItem>
                 <ListItem>
                   <ListItemText>
-                    3. В верхней панели DevTools перейдите на вкладку <i>Консоль/Console</i>
+                    3. В верхней панели DevTools перейдите на вкладку <i>Консоль (Console)</i>
                   </ListItemText>
                 </ListItem>
                 <ListItem>
@@ -78,8 +78,8 @@ export function Auth() {
                   <ListItemText>
                     4. Спустя 5-20 секунд вы увидите следующий лог:
                     <img src={authImg} alt="auth tip" />
-                    Скопируйте всё начиная от vk_access_token... и введите в поле ниже. Если ничего не появилось -
-                    попробуйте еще раз, перезагрузив страницу.
+                    Скопируйте всё, начиная от <b>vk_access_token</b> и введите в поле ниже. Если ничего не появилось -
+                    попробуйте еще раз, предварительно перезагрузив страницу.
                   </ListItemText>
                 </ListItem>
               </List>
@@ -96,7 +96,7 @@ export function Auth() {
               вас пытаются обмануть!
             </Typography>
             <Button className={styles.button} onClick={() => setViewed(true)}>
-              Погнали
+              Я понимаю, погнали
             </Button>
           </>
         )}

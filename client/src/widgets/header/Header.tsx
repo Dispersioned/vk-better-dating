@@ -10,11 +10,12 @@ import styles from './styles.module.scss';
 
 export function Header() {
   const navigate = useNavigate();
-  const { authData } = useAuthStore();
+  const { authData, setAuthData } = useAuthStore();
   const { setParams } = useTokenStore();
 
   const onLogout = () => {
     setParams(null);
+    setAuthData(null);
     navigate('/auth');
   };
 

@@ -1,7 +1,6 @@
-import { X_LOVINA_AGENT, X_SESSION_KEY } from '../config/consts.js';
 import { readStream } from '../utils/readStream.js';
 
-export async function authVkDating(vkAuthParams) {
+export async function authVkDating({ authParams, lovinaAgent, sessionKey }) {
   const res = await fetch('https://dating.vk-apps.ru/api/auth.signIn', {
     headers: {
       accept: 'application/json, text/plain, */*',
@@ -16,13 +15,13 @@ export async function authVkDating(vkAuthParams) {
       'sec-fetch-mode': 'cors',
       'sec-fetch-site': 'cross-site',
       'x-api-version': '1.7',
-      'x-lovina-agent': X_LOVINA_AGENT,
-      'x-session-key': X_SESSION_KEY,
+      'x-lovina-agent': lovinaAgent,
+      'x-session-key': sessionKey,
       Referrer: 'https://prod-app7058363-8039c5d351e4.pages-ac.vk-apps.com/',
       'Referrer-Policy': 'strict-origin-when-cross-origin',
     },
     body: JSON.stringify({
-      launch_url: `?${vkAuthParams}`,
+      launch_url: `?${authParams}`,
     }),
     method: 'POST',
     mode: 'cors',

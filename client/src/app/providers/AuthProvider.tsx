@@ -5,6 +5,7 @@ import { PropsWithChildren, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from 'shared/api';
 import { IAxiosError } from 'shared/types';
+import { getAxiosErrorMessage } from 'shared/utils/getAxiosErrorMessage';
 
 type ThemeProviderProps = PropsWithChildren;
 
@@ -32,7 +33,7 @@ export function AuthProvider({ children }: ThemeProviderProps) {
         }
       } catch (e) {
         const error = e as IAxiosError;
-        setError(error.response.data.error);
+        setError(getAxiosErrorMessage(e) || 'Токен неправильный или протух. Сгенерийте новый');
         setParams(null);
       }
       setIsLoading(false);

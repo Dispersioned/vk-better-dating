@@ -1,7 +1,9 @@
-import { X_LOVINA_AGENT, X_SESSION_KEY } from '../config/consts.js';
 import { readStream } from '../utils/readStream.js';
 
-export async function getLikes(token) {
+export async function getLikes({ token, lovinaAgent, sessionKey }) {
+  console.log('token', token);
+  console.log('lovinaAgent', lovinaAgent);
+  console.log('sessionKey', sessionKey);
   const res = await fetch('https://dating.vk-apps.ru/api/dating.getLikeToYouUsers', {
     headers: {
       accept: 'application/json, text/plain, */*',
@@ -17,8 +19,8 @@ export async function getLikes(token) {
       'sec-fetch-site': 'cross-site',
       'x-api-version': '1.7',
       'x-auth-token': token,
-      'x-lovina-agent': X_LOVINA_AGENT,
-      'x-session-key': X_SESSION_KEY,
+      'x-lovina-agent': lovinaAgent,
+      'x-session-key': sessionKey,
       Referer: 'https://prod-app7058363-58b56b6046cc.pages-ac.vk-apps.com/',
       'Referrer-Policy': 'strict-origin-when-cross-origin',
     },

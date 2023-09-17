@@ -2,11 +2,17 @@ import { IDates, IMyself, IVkAuth } from 'shared/types';
 
 import { api } from '.';
 
-export async function getLikes(vktoken: string) {
+type Payload = {
+  vktoken: string;
+  userId: number;
+};
+
+export async function getLikes({ vktoken, userId }: Payload) {
   // todo: перенести в компоненты обработку ошибок
   try {
     const res = await api.post<IMyself>('likes', {
       vktoken,
+      userId,
     });
     return res.data;
   } catch (e) {
@@ -14,11 +20,12 @@ export async function getLikes(vktoken: string) {
   }
 }
 
-export async function getDates(vktoken: string) {
+export async function getDates({ vktoken, userId }: Payload) {
   // todo: перенести в компоненты обработку ошибок
   try {
     const res = await api.post<IDates>('recommendations', {
       vktoken,
+      userId,
     });
     return res.data;
   } catch (e) {

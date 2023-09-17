@@ -1,7 +1,7 @@
 export type IAxiosError = {
   response: {
     data: {
-      error: string;
+      error?: string;
     };
   };
 };

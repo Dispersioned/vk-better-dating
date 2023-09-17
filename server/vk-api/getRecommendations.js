@@ -1,7 +1,6 @@
-import { X_LOVINA_AGENT, X_SESSION_KEY } from '../config/consts.js';
 import { readStream } from '../utils/readStream.js';
 
-export async function getRecommendations(token, count) {
+export async function getRecommendations({ token, count, lovinaAgent, sessionKey }) {
   const res = await fetch('https://dating.vk-apps.ru/api/dating.getRecommendedUsers', {
     headers: {
       accept: 'application/json, text/plain, */*',
@@ -17,8 +16,8 @@ export async function getRecommendations(token, count) {
       'sec-fetch-site': 'cross-site',
       'x-api-version': '1.7',
       'x-auth-token': token,
-      'x-lovina-agent': X_LOVINA_AGENT,
-      'x-session-key': X_SESSION_KEY,
+      'x-lovina-agent': lovinaAgent,
+      'x-session-key': sessionKey,
       Referer: 'https://prod-app7058363-3c6312d9a263.pages-ac.vk-apps.com/',
       'Referrer-Policy': 'strict-origin-when-cross-origin',
     },

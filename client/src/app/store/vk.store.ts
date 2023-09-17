@@ -26,11 +26,12 @@ export const useVkStore = create<VkStore>((set, get) => ({
     if (get().isLoading) return;
     set({ isLoading: true });
     const vktoken = useAuthStore.getState().authData!.token;
+    const userId = useAuthStore.getState().authData!.user.vk_id;
 
     try {
-      const myselfApi = await getLikes(vktoken);
+      const myselfApi = await getLikes({ vktoken, userId });
       if (myselfApi) get().setMyself(myselfApi);
-      const datesApi = await getDates(vktoken);
+      const datesApi = await getDates({ vktoken, userId });
       if (datesApi) get().setDates(datesApi);
     } catch (e) {
       set({ error: e });

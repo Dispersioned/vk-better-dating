@@ -3,7 +3,7 @@ import { useAuthStore } from 'app/store/auth.store';
 import { useTokenStore } from 'app/store/token.store';
 import { useState } from 'react';
 import { login } from 'shared/api';
-import { IAxiosError } from 'shared/types';
+import { getAxiosErrorMessage } from 'shared/utils/getAxiosErrorMessage';
 
 import styles from './styles.module.scss';
 
@@ -25,8 +25,8 @@ export function Form() {
         setAuthData(authData);
       }
     } catch (e) {
-      const error = e as IAxiosError;
-      setError(error.response.data.error);
+      console.log('e', e);
+      setError(getAxiosErrorMessage(e) || 'Токен неправильный или протух. Сгенерийте новый');
     }
   };
 
@@ -43,7 +43,7 @@ export function Form() {
           Поехали
         </Button>
       </div>
-      {error && <Typography>{error}. Если ты видишь эту ошибку - параметры неправильные</Typography>}
+      {error && <Typography>{error}</Typography>}
     </div>
   );
 }

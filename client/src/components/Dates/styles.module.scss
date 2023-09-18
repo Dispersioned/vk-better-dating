@@ -70,6 +70,12 @@
   border-radius: 2px;
 }
 
+.user {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .info {
 }
 
@@ -77,4 +83,23 @@
   display: flex;
   justify-content: space-between;
   gap: 15px;
+}
+
+.info_primary_B {
+  flex: 1 0 auto;
+}
+
+.interests {
+  display: flex;
+  gap: 10px;
+  margin: 5px 0 0;
+}
+
+.interests_list {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.interests_chip {
+  font-size: 17px;
 }

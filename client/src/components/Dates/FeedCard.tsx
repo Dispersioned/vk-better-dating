@@ -1,6 +1,6 @@
-import { Typography } from '@mui/material';
+import { Chip, Typography } from '@mui/material';
 import { OnlineStatus } from 'components/OnlineStatus';
-import { FAMILY_STATE, INTERESTS_STATE, SPORT_STATE, ZODIAC_SIGN_STATE } from 'shared/config/vk';
+import { DATE_TARGET_STATE, FAMILY_STATE, INTERESTS_STATE, SPORT_STATE, ZODIAC_SIGN_STATE } from 'shared/config/vk';
 import { IDateUser } from 'shared/types';
 import { renderFromEnum } from 'shared/utils/renderFromEnum';
 
@@ -36,13 +36,20 @@ export function FeedCard({ user, isMatch }: FeedCardProps) {
             <Typography>Цель знакомства: {user.form.target}</Typography>
             <Typography>Семейное положение: {renderFromEnum(FAMILY_STATE, user.form.family)}</Typography>
             <Typography>О себе: {user.form.about}</Typography>
+            <div className={styles.interests}>
+              <Typography>Интересы:</Typography>
+              <div className={styles.interests_list}>
+                {renderFromEnum(INTERESTS_STATE, sortedInterests, {
+                  render: (text) => <Chip key={text} className={styles.interests_chip} label={text} />,
+                })}
+              </div>
+            </div>
             <Typography>Рост: {user.form.height}</Typography>
           </div>
-          <div>
+          <div className={styles.info_primary_B}>
             <Typography>Знак зодиака: {renderFromEnum(ZODIAC_SIGN_STATE, user.zodiac_sign_id)}</Typography>
             <Typography>Работа: {user.form.work}</Typography>
             <Typography>Образование: {user.form.education}</Typography>
-            <Typography>Интересы: {renderFromEnum(INTERESTS_STATE, sortedInterests)}</Typography>
             <Typography>Отношение к спорту: {renderFromEnum(SPORT_STATE, user.form.sport)}</Typography>
           </div>
         </div>

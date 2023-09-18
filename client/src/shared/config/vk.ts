@@ -9,6 +9,12 @@ export const SPORT_STATE = {
   keep_in_shape: 'Держу форму',
 };
 
+export const DATE_TARGET_STATE = {
+  serious_date: 'Серьёзные отношения',
+  conversation: 'Дружеское общение',
+  new_experience: 'Новый опыт',
+};
+
 export const ZODIAC_SIGN_STATE = {
   sagittarius: 'Стрелец',
   capricornus: 'Козерог',

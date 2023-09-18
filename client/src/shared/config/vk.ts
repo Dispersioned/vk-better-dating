@@ -96,6 +96,7 @@ export const INTERESTS_STATE = {
   classical_music: 'классическая музыка',
   action_movie: 'боевики',
   historical_films: 'исторические фильмы',
+  metal_music: 'хэви металл',
   // раздел "люблю"
   movies: 'фильмы',
   art: 'искусство',

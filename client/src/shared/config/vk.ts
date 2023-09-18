@@ -1,9 +1,12 @@
 export const FAMILY_STATE = {
   free: 'Свободна',
   all_complicated: 'Всё сложно',
+  in_relations: 'В отношениях',
+  free_date: 'Свободные отношения',
 };
 
 export const SPORT_STATE = {
+  not_like: 'Не люблю',
   life_in: 'Абсолютно люблю',
   walking: 'Хожу пешком',
   keep_in_shape: 'Держу форму',
@@ -42,6 +45,11 @@ export const INTERESTS_STATE = {
   gaming: 'гейминг',
   blogging: 'блоггинг',
   swimming: 'плавание',
+  horse_riding: 'верховая езда',
+  ski: 'лыжи',
+  gardening: 'садоводство',
+  volunteering: 'волонтерство',
+  weightlifting: 'пауэрлифтинг',
   // еда
   sushi: 'суши',
   pizza: 'пицца',
@@ -54,6 +62,9 @@ export const INTERESTS_STATE = {
   // животные
   dogs: 'собаки',
   cats: 'котики',
+  snakes: 'змеи',
+  rabbits: 'кролики',
+  hamsters: 'хомячки',
   // мероприятия
   // места
   fitness_gym: 'спортзал',
@@ -74,6 +85,8 @@ export const INTERESTS_STATE = {
   // музыка и жанры
   rock: 'рок',
   rap: 'рэп',
+  hip_hop: 'хип хоп',
+  pop_music: 'поп (жанр)',
   horrors: 'хорроры',
   comedies: 'комедии',
   thrillers: 'триллеры',
@@ -82,16 +95,19 @@ export const INTERESTS_STATE = {
   dramas: 'драмы',
   classical_music: 'классическая музыка',
   action_movie: 'боевики',
+  historical_films: 'исторические фильмы',
   // раздел "люблю"
   movies: 'фильмы',
   art: 'искусство',
   books: 'книги',
   yoga: 'йога',
   fashion: 'мода',
+  football: 'футбол',
+  volleyball: 'воллейбол',
+  basketball: 'баскетбол',
   makeup: 'мейкап',
   bicycle: 'велосипед',
   cars: 'машины',
-  volleyball: 'воллейбол',
   design: 'дизайнинг',
   videography: 'видеомонтаж',
   computer_games: 'компьютерные игры',
@@ -112,6 +128,8 @@ export const INTERESTS_STATE = {
   biking: 'мотоциклы',
   scooter: 'скутеры',
   birds: 'птицы',
+  roller_skates: 'езда на роликах',
+
   // кто я?
   music_lover: 'меломан',
 };

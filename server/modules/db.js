@@ -82,6 +82,16 @@ export class DataBase {
       return items.find((item) => item.id === id);
     }
 
+    function updateById(id, item) {
+      const index = items.findIndex((item) => item.id === id);
+      if (index === -1) {
+        console.log(`can not update, id "${id}" not found in collection "${name}"`);
+        return null;
+      }
+      items[index] = item;
+      return item;
+    }
+
     function insert(newItem) {
       if (items.find((item) => item.id === newItem.id)) {
         console.log(
@@ -108,6 +118,7 @@ export class DataBase {
       findById,
       insert,
       insertUnique,
+      updateById,
     };
 
     return createdCollection;

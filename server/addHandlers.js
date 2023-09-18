@@ -95,7 +95,7 @@ export function addHandlers(app) {
       console.log('liked', likedInfo);
 
       const serialized = {
-        id: recipientId,
+        userId: recipientId,
         isMatchMissed: likedInfo.is_matched_missed,
         date: Date.now(),
       };
@@ -103,7 +103,16 @@ export function addHandlers(app) {
       const likedColection = db.getCollection('liked');
       likedColection.insert(serialized);
 
-      await db.save();
+      const recommendationsCollection = db.getCollection('recommendatioons');
+      const user = recommendationsCollection.findById(recipientId);
+      if (user) {
+        // превалирует над пропущенным
+        user.isLiked = true;
+        // user.isSkipped = false;
+        const savedUser = recommendationsCollection.updateById(user.id, user);
+        console.log('savedUser', savedUser);
+        await db.save();
+      }
 
       return res.json(serialized);
     } catch (e) {
@@ -122,10 +131,10 @@ export function addHandlers(app) {
         lovinaAgent: createLovinaAgent(userId),
       });
 
-      console.log('dissliked', dislikeInfo);
+      console.log('disliked', dislikeInfo);
 
       const serialized = {
-        id: recipientId,
+        userId: recipientId,
         isMatchMissed: dislikeInfo.is_matched_missed,
         date: Date.now(),
       };
@@ -133,8 +142,17 @@ export function addHandlers(app) {
       const dislikedColection = db.getCollection('disliked');
       dislikedColection.insert(serialized);
 
-      await db.save();
-
+      const recommendationsCollection = db.getCollection('recommendatioons');
+      const user = recommendationsCollection.findById(recipientId);
+      if (user) {
+        // не трогаем, лайк сохраняется всегда
+        // но это не точно
+        // user.isLiked = ;
+        user.isSkipped = true;
+        const savedUser = recommendationsCollection.updateById(user.id, user);
+        console.log('savedUser', savedUser);
+        await db.save();
+      }
       return res.json(serialized);
     } catch (e) {
       console.log(e);

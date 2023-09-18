@@ -11,8 +11,6 @@ type DateUserProps = {
 };
 
 export function DateUser({ user, match }: DateUserProps) {
-  console.log('match', match);
-
   const onViewMatch = () => {
     if (!match) return;
 

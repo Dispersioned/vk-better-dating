@@ -1,5 +1,5 @@
 import { getDates, getLikes } from 'shared/api';
-import { IDateUser, IDates, IMyself, IVkAuth } from 'shared/types';
+import { IDateUser, IDates, IMatchInfo, IMyself, IVkAuth } from 'shared/types';
 import { create } from 'zustand';
 
 import { useAuthStore } from './auth.store';
@@ -13,7 +13,8 @@ type VkStore = {
   myself: IMyself | null;
   setMyself: (myself: IMyself) => void;
   fetch: () => void;
-  getMatches: () => IDateUser[] | null;
+  matches: IMatchInfo[] | null;
+  updateMatches: () => void;
 };
 
 export const useVkStore = create<VkStore>((set, get) => ({
@@ -21,6 +22,7 @@ export const useVkStore = create<VkStore>((set, get) => ({
   error: null,
   dates: null,
   myself: null,
+  matches: null,
   setDates: (dates) => set({ dates }),
   setMyself: (myself) => set({ myself }),
   fetch: async () => {
@@ -38,13 +40,14 @@ export const useVkStore = create<VkStore>((set, get) => ({
       set({ error: e });
     }
     set({ isLoading: false });
+    get().updateMatches();
   },
-  getMatches: () => {
+  updateMatches: () => {
     const { myself, dates } = get();
 
     if (!myself || !dates) return null;
 
-    const matchedUsers: IDateUser[] = [];
+    const matches: IMatchInfo[] = [];
     const peopleWhoLikedMePhotoUrls = myself.users.map((user) => user.photo_url);
 
     dates.users.forEach((recommendation) => {
@@ -52,11 +55,14 @@ export const useVkStore = create<VkStore>((set, get) => ({
 
       personBlurredPhotoUrls.forEach((url) => {
         if (peopleWhoLikedMePhotoUrls.includes(url)) {
-          matchedUsers.push(recommendation);
+          matches.push({
+            user: recommendation,
+            matchedByUrl: url,
+          });
         }
       });
     });
 
-    return matchedUsers;
+    set({ matches });
   },
 }));

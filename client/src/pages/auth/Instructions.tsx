@@ -1,6 +1,6 @@
 import { Button, List, ListItem, ListItemText, Typography } from '@mui/material';
 import authImg from 'assets/img/auth.png';
-import { toast } from 'react-toastify';
+import { toastService } from 'shared/services/toast.service';
 import { copyToClipboard } from 'shared/utils/copyToClipboard';
 
 import styles from './styles.module.scss';
@@ -37,7 +37,7 @@ export function Instructions() {
 
   const onCopyScript = () => {
     copyToClipboard(script);
-    toast('Скопировано!', { type: 'success', position: 'bottom-center' });
+    toastService.success('Скопировано!');
   };
 
   return (

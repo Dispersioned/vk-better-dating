@@ -1,6 +1,5 @@
 import { Typography } from '@mui/material';
 import { OnlineStatus } from 'components/OnlineStatus';
-import { format } from 'date-fns';
 import { FAMILY_STATE, SPORT_STATE } from 'shared/config/vk';
 import { IDates } from 'shared/types';
 import { renderFromEnum } from 'shared/utils/renderFromEnum';
@@ -19,7 +18,7 @@ export function Dates({ dates }: DatesProps) {
       </Typography>
       <div className={styles.users}>
         {dates.users.map((user) => (
-          <div className={styles.user} key={user.id}>
+          <div className={styles.user} key={user.id} data-recommendationid={user.id}>
             <div className={styles.header}>
               <Typography>
                 {user.name} {user.age}

@@ -1,5 +1,7 @@
-import { Typography } from '@mui/material';
-import { IDateUser, IMatchInfo, IUser } from 'shared/types';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import { IconButton, Typography } from '@mui/material';
+import { toastService } from 'shared/services/toast.service';
+import { IDateUser, IUser } from 'shared/types';
 
 import styles from './styles.module.scss';
 
@@ -10,10 +12,31 @@ type DateUserProps = {
 
 export function DateUser({ user, match }: DateUserProps) {
   console.log('match', match);
+
+  const onViewMatch = () => {
+    if (!match) return;
+
+    const matchCardAnchor = document.querySelector(`[data-recommendationId="${match.id}"]`);
+
+    if (!matchCardAnchor) toastService.error(`Такой анкеты нет в ленте`);
+    matchCardAnchor?.scrollIntoView({
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <div className={styles.user}>
       <div className={styles.user_header}>
-        <Typography variant="h5">{user.name}</Typography>
+        <div className={styles.header_primary}>
+          {match && (
+            <IconButton onClick={onViewMatch}>
+              <VisibilityIcon />
+            </IconButton>
+          )}
+          <Typography variant="h5">
+            {user.name} {match?.age}
+          </Typography>
+        </div>
         {user.is_online && <Typography className={styles.online}>Онлайн</Typography>}
       </div>
       {(() => {

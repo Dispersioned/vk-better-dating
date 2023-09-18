@@ -12,6 +12,7 @@
 
 .header {
   display: flex;
+  align-items: center;
   gap: 15px;
 }
 
@@ -25,4 +26,11 @@
 
 .story_media {
   max-height: 350px;
+}
+
+.liked_me {
+  background-color: rgb(243, 62, 125);
+  color: #ffffff;
+  padding: 2px 10px;
+  border-radius: 2px;
 }

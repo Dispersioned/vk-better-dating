@@ -169,3 +169,8 @@ export type IVkAuth = {
     verification_pose_id: 'victory' | string;
   };
 };
+
+export type IMatchInfo = {
+  user: IDateUser;
+  matchedByUrl: string;
+};

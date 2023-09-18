@@ -1,9 +1,9 @@
-import { Button, Container, Link, Typography } from '@mui/material';
+import { Button, Container, Link as MUILink, Typography } from '@mui/material';
 import { useAuthStore } from 'app/store/auth.store';
 import { useTokenStore } from 'app/store/token.store';
 import { useVkStore } from 'app/store/vk.store';
 import logoIcon from 'assets/icons/logo.svg';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { APP_VERSION } from 'shared/config/meta';
 
 import styles from './styles.module.scss';
@@ -23,19 +23,26 @@ export function Header() {
     <header className={styles.header}>
       <Container maxWidth="xl">
         <div className={styles.content}>
-          <div className={styles.logo_wrapper}>
-            <img className={styles.logo} src={logoIcon} alt="vk better dating" />
-            <Typography variant="h5" fontWeight={600}>
-              Better Dating
-            </Typography>
+          <div className={styles.content_primary}>
+            <Link to="/" className={styles.logo_wrapper}>
+              <img className={styles.logo} src={logoIcon} alt="vk better dating" />
+              <Typography variant="h5" fontWeight={600}>
+                Better Dating
+              </Typography>
+            </Link>
+            {authData && (
+              <Link to="/settings" className={styles.navlink}>
+                settings
+              </Link>
+            )}
           </div>
           <div className={styles.header_aside}>
             <Typography>version {APP_VERSION}</Typography>
             <Typography>
               Created by{' '}
-              <Link href="https://t.me/dispersioned" target="_blank">
+              <MUILink href="https://t.me/dispersioned" target="_blank">
                 Dispersioned
-              </Link>
+              </MUILink>
             </Typography>
             {authData && (
               <Button color="error" onClick={onLogout}>

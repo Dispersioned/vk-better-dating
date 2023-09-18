@@ -15,8 +15,8 @@ export function App() {
         <StyledEngineProvider injectFirst>
           <AuthProvider>
             <AppRouter />
-            <ToastContainer newestOnTop limit={4} />
           </AuthProvider>
+          <ToastContainer newestOnTop limit={4} />
         </StyledEngineProvider>
       </ThemeProvider>
     </BrowserRouter>

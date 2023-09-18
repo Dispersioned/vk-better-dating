@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import { OnlineStatus } from 'components/OnlineStatus';
-import { FAMILY_STATE, SPORT_STATE } from 'shared/config/vk';
+import { FAMILY_STATE, INTERESTS_STATE, SPORT_STATE } from 'shared/config/vk';
 import { IDateUser } from 'shared/types';
 import { renderFromEnum } from 'shared/utils/renderFromEnum';
 
@@ -12,6 +12,9 @@ type FeedCardProps = {
 };
 
 export function FeedCard({ user, isMatch }: FeedCardProps) {
+  const sortedInterests = [...user.form.interests];
+  sortedInterests.sort();
+
   return (
     <div className={styles.user} data-recommendationid={user.id}>
       <div className={styles.header}>
@@ -33,7 +36,7 @@ export function FeedCard({ user, isMatch }: FeedCardProps) {
         <Typography>Семейное положение: {renderFromEnum(FAMILY_STATE, user.form.family)}</Typography>
         <Typography>О себе: {user.form.about}</Typography>
         <Typography>Знак зодиака: {user.zodiac_sign_id}</Typography>
-        <Typography>Интересы: {user.form.interests.join(', ')}</Typography>
+        <Typography>Интересы: {renderFromEnum(INTERESTS_STATE, sortedInterests)}</Typography>
         <Typography>Рост: {user.form.height}</Typography>
         <Typography>Музыка: {user.form.music}</Typography>
         <Typography>Фильмы: {user.form.movies}</Typography>

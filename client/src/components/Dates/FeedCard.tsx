@@ -18,19 +18,19 @@ export function FeedCard({ user, isMatch }: FeedCardProps) {
   return (
     <div className={styles.user} data-recommendationid={user.id}>
       <div className={styles.header}>
+        {isMatch && <Typography className={styles.liked_me}>Лайкнул{user.sex === 'female' && 'а'} тебя</Typography>}
+        {user.is_deleted && <Typography color="error">Удаленный аккаунт</Typography>}
+        {user.is_blocked && <Typography color="error">Вы заблокировали этот аккаунт</Typography>}
+        {user.is_premium_enabled && <Typography className={styles.user_premium}>Премиум акаунт</Typography>}
+        {user.is_verify && <Typography className={styles.user_verified}>Подтвержденный аккаунт</Typography>}
         <Typography>
           {user.name} {user.age}
         </Typography>
         <OnlineStatus online={user.is_online} lastOnline={user.last_active_at} />
         <Typography>{user.extra.distance} метров от вас</Typography>
         <Typography>ID: {user.id}</Typography>
-        {isMatch && <Typography className={styles.liked_me}>Лайкнул{user.sex === 'female' && 'а'} тебя</Typography>}
       </div>
       <div>
-        {user.is_verify && <Typography>Подтвержденный аккаунт</Typography>}
-        {user.is_deleted && <Typography color="error">Удаленный аккаунт</Typography>}
-        {user.is_blocked && <Typography color="warning">Вы заблокировали этот аккаунт</Typography>}
-        {user.is_premium_enabled && <Typography color="info">Премиум акаунт</Typography>}
         <Typography>Работа: {user.form.work}</Typography>
         <Typography>Образование: {user.form.education}</Typography>
         <Typography>Семейное положение: {renderFromEnum(FAMILY_STATE, user.form.family)}</Typography>

@@ -73,6 +73,7 @@ export const INTERESTS_STATE = {
   museums_and_galleries: 'музеи и галереи',
   videography: 'видеомонтаж',
   computer_games: 'компьютерные игры',
+  gaming: 'гейминг',
   thrillers: 'триллеры',
   gymnastic: 'гимнастика',
   burger: 'бургеры',

@@ -15,6 +15,8 @@ export function AuthProvider({ children }: ThemeProviderProps) {
   const { setAuthData, isLoading, setIsLoading } = useAuthStore();
   const { vkparams, setParams } = useTokenStore();
 
+  // todo: сюда добавить локальный стейт isLoaded
+
   useEffect(() => {
     setIsLoading(true);
 

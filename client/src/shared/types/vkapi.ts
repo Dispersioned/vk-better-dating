@@ -22,7 +22,7 @@ export type IMyself = {
 export type IZodiac = 'leo' | 'capricornus' | string;
 export type IInterests = 'detectives' | 'coffee' | 'music_lover' | string;
 export type ISports = 'keep_in_shape' | string;
-export type IDatingTarget = 'serious_date' | string;
+export type IDatingTarget = 'serious_date' | 'conversation' | 'new_experience' | undefined;
 export type IFamily = 'free' | string;
 
 type IStoryBase = {

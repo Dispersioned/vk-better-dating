@@ -4,6 +4,7 @@ import { useTokenStore } from 'app/store/token.store';
 import { PropsWithChildren, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from 'shared/api';
+import { toastService } from 'shared/services/toast.service';
 import { IAxiosError } from 'shared/types';
 import { getAxiosErrorMessage } from 'shared/utils/getAxiosErrorMessage';
 
@@ -11,7 +12,7 @@ type ThemeProviderProps = PropsWithChildren;
 
 export function AuthProvider({ children }: ThemeProviderProps) {
   const navigate = useNavigate();
-  const { setAuthData, isLoading, setError, setIsLoading } = useAuthStore();
+  const { setAuthData, isLoading, setIsLoading } = useAuthStore();
   const { vkparams, setParams } = useTokenStore();
 
   useEffect(() => {
@@ -19,7 +20,6 @@ export function AuthProvider({ children }: ThemeProviderProps) {
 
     if (!vkparams) {
       setIsLoading(false);
-      setError('Токен отсутствует!');
       navigate('/auth');
       return;
     }
@@ -29,11 +29,9 @@ export function AuthProvider({ children }: ThemeProviderProps) {
         const authData = await login(vkparams!);
         if (authData) {
           setAuthData(authData);
-          setError(null);
         }
       } catch (e) {
-        const error = e as IAxiosError;
-        setError(getAxiosErrorMessage(e) || 'Токен неправильный или протух. Сгенерийте новый');
+        toastService.error(getAxiosErrorMessage(e) || 'Токен неправильный или протух. Сгенерийте новый');
         setParams(null);
       }
       setIsLoading(false);

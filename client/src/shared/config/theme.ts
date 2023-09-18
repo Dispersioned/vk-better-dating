@@ -38,5 +38,12 @@ export const theme = createTheme({
         },
       },
     },
+    MuiChip: {
+      styleOverrides: {
+        label: {
+          fontFamily: 'Fira Sans',
+        },
+      },
+    },
   },
 });

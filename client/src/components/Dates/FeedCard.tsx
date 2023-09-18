@@ -33,7 +33,7 @@ export function FeedCard({ user, isMatch }: FeedCardProps) {
       <div className={styles.info}>
         <div className={styles.info_primary}>
           <div>
-            <Typography>Цель знакомства: {user.form.target}</Typography>
+            <Typography>Цель знакомства: {renderFromEnum(DATE_TARGET_STATE, user.form.target)}</Typography>
             <Typography>Семейное положение: {renderFromEnum(FAMILY_STATE, user.form.family)}</Typography>
             <Typography>О себе: {user.form.about}</Typography>
             <div className={styles.interests}>

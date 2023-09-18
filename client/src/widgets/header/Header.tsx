@@ -30,9 +30,11 @@ export function Header() {
                 Better Dating
               </Typography>
             </Link>
-            <Link to="/settings" className={styles.navlink}>
-              settings
-            </Link>
+            {authData && (
+              <Link to="/settings" className={styles.navlink}>
+                settings
+              </Link>
+            )}
           </div>
           <div className={styles.header_aside}>
             <Typography>version {APP_VERSION}</Typography>

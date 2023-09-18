@@ -22,7 +22,11 @@ export class DataBase {
     if (!recommendationsCollection) this.createCollection('recommendations');
     const likesCollection = this.getCollection('likes');
     if (!likesCollection) this.createCollection('likes');
-    if (!recommendationsCollection || !likesCollection) await this.save();
+    const likedCollection = this.getCollection('liked');
+    if (!likedCollection) this.createCollection('liked');
+    const dislikedCollection = this.getCollection('disliked');
+    if (!dislikedCollection) this.createCollection('disliked');
+    if (!recommendationsCollection || !likesCollection || !likedCollection || !dislikedCollection) await this.save();
   };
 
   loadDB = async () => {

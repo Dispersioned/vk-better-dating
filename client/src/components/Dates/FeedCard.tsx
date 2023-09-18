@@ -69,10 +69,10 @@ export function FeedCard({ user, isMatch }: FeedCardProps) {
         <Typography>{user.extra.distance} метров от вас</Typography>
         <Typography>ID: {user.id}</Typography>
         <IconButton onClick={onLike}>
-          <ThumbUpIcon color="success" />
+          <ThumbUpIcon color="success" className={styles.icon_button} />
         </IconButton>
         <IconButton onClick={onDislike}>
-          <ThumbDownIcon color="error" />
+          <ThumbDownIcon color="error" className={styles.icon_button} />
         </IconButton>
       </div>
       <div className={styles.info}>

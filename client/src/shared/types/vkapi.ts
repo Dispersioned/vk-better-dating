@@ -182,3 +182,9 @@ export type IMatchInfo = {
   user: IRecommendationUserInfo;
   matchedByUrl: string;
 };
+
+export type ILikeOrDislikeResponse = {
+  userId: number;
+  isMatchMissed: boolean;
+  date: number;
+};

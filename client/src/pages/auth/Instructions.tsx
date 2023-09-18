@@ -62,7 +62,7 @@ export function Instructions() {
       <ListItem className={styles.instruction_script}>
         <div className={styles.instruction_script_text}>
           <ListItemText>3. Вставьте туда следующий скрипт:</ListItemText>
-          <Button onClick={onCopyScript}>нажми, чтобы скопировать</Button>
+          <Button onClick={onCopyScript}>скопировать</Button>
         </div>
         <Typography component="pre" fontFamily="monospace" fontSize={17}>
           {script}

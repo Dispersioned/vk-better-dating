@@ -99,12 +99,20 @@ export type IDateUser = {
   zodiac_sign_id: IZodiac;
 };
 
+export type IRecommendationUserInfo = {
+  //* same as user.id
+  id: number;
+  user: IDateUser;
+  isLiked: boolean;
+  isSkipped: boolean;
+};
+
 export type IDates = {
   // 100, обнуляется каждый день
   // тратится при лайках
   remaining: number;
   server_time: string;
-  users: IDateUser[];
+  users: IRecommendationUserInfo[];
 };
 
 export type IVkAuth = {
@@ -171,6 +179,6 @@ export type IVkAuth = {
 };
 
 export type IMatchInfo = {
-  user: IDateUser;
+  user: IRecommendationUserInfo;
   matchedByUrl: string;
 };

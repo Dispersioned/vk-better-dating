@@ -22,8 +22,12 @@ export function Dates({ dates }: DatesProps) {
         Анкеты ({dates.users.length}) Лайков доступно: {dates.remaining}
       </Typography>
       <div className={styles.users}>
-        {dates.users.map((user) => (
-          <FeedCard key={user.id} user={user} isMatch={matchedUserIds.includes(user.id)} />
+        {dates.users.map((recommendation) => (
+          <FeedCard
+            key={recommendation.id}
+            user={recommendation.user}
+            isMatch={matchedUserIds.includes(recommendation.user.id)}
+          />
         ))}
       </div>
     </div>

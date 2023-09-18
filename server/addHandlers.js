@@ -1,4 +1,5 @@
 import { db } from './modules/db.js';
+import { serializeRecommendations } from './serializers/serializeRecommendations.js';
 import { createLovinaAgent } from './utils/createLovinaAgent.js';
 import { createSessionKey } from './utils/createSessionKey.js';
 import { authVkDating } from './vk-api/authVkDating.js';
@@ -33,11 +34,13 @@ export function addHandlers(app) {
         lovinaAgent: createLovinaAgent(userId),
       });
 
+      const serialized = serializeRecommendations(recommendations);
+
       const recommendationsCollection = db.getCollection('recommendations');
-      const uniqueItems = recommendationsCollection.insertUnique(recommendations.users);
+      const uniqueItems = recommendationsCollection.insertUnique(serialized.users);
       if (uniqueItems.length) await db.save();
 
-      return res.json(recommendations);
+      return res.json(serialized);
     } catch (e) {
       return res.status(404).json(e);
     }

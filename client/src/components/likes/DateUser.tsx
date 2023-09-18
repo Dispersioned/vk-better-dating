@@ -1,13 +1,13 @@
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { IconButton, Typography } from '@mui/material';
 import { toastService } from 'shared/services/toast.service';
-import { IDateUser, IUser } from 'shared/types';
+import { IDateUser, IRecommendationUserInfo, IUser } from 'shared/types';
 
 import styles from './styles.module.scss';
 
 type DateUserProps = {
   user: IUser;
-  match?: IDateUser;
+  match?: IRecommendationUserInfo;
 };
 
 export function DateUser({ user, match }: DateUserProps) {
@@ -32,7 +32,7 @@ export function DateUser({ user, match }: DateUserProps) {
             </IconButton>
           )}
           <Typography variant="h5">
-            {user.name} {match?.age}
+            {user.name} {match?.user.age}
           </Typography>
         </div>
         {user.is_online && <Typography className={styles.online}>Онлайн</Typography>}
@@ -42,12 +42,12 @@ export function DateUser({ user, match }: DateUserProps) {
           return <img className={styles.user_photo} src={user.photo_url} alt={user.name} />;
         }
 
-        const photoStory = match.stories.find((story) => story.type === 'photo');
+        const photoStory = match.user.stories.find((story) => story.type === 'photo');
         if (photoStory) {
           return <img className={styles.user_photo} src={photoStory.large_url} alt={user.name} />;
         }
 
-        const videoStory = match.stories.find((story) => story.type === 'video');
+        const videoStory = match.user.stories.find((story) => story.type === 'video');
         if (videoStory) {
           return <video className={styles.user_photo} src={videoStory.large_url} controls />;
         }

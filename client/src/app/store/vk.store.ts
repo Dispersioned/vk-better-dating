@@ -51,7 +51,7 @@ export const useVkStore = create<VkStore>((set, get) => ({
     const peopleWhoLikedMePhotoUrls = myself.users.map((user) => user.photo_url);
 
     dates.users.forEach((recommendation) => {
-      const personBlurredPhotoUrls = recommendation.stories.map((story) => story.blur_url);
+      const personBlurredPhotoUrls = recommendation.user.stories.map((story) => story.blur_url);
 
       personBlurredPhotoUrls.forEach((url) => {
         if (peopleWhoLikedMePhotoUrls.includes(url)) {

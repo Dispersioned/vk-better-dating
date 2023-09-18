@@ -92,11 +92,12 @@ export function addHandlers(app) {
         lovinaAgent: createLovinaAgent(userId),
       });
 
-      console.log('liked', likedInfo);
+      // console.log('liked', likedInfo);
 
       const serialized = {
+        id: recipientId,
         userId: recipientId,
-        isMatchMissed: likedInfo.is_matched_missed,
+        isMatchMissed: likedInfo.is_match_missed,
         date: Date.now(),
       };
 
@@ -110,7 +111,6 @@ export function addHandlers(app) {
         user.isLiked = true;
         // user.isSkipped = false;
         const savedUser = recommendationsCollection.updateById(user.id, user);
-        console.log('savedUser', savedUser);
         await db.save();
       }
 
@@ -131,11 +131,12 @@ export function addHandlers(app) {
         lovinaAgent: createLovinaAgent(userId),
       });
 
-      console.log('disliked', dislikeInfo);
+      // console.log('disliked', dislikeInfo);
 
       const serialized = {
+        id: recipientId,
         userId: recipientId,
-        isMatchMissed: dislikeInfo.is_matched_missed,
+        isMatchMissed: dislikeInfo.is_match_missed,
         date: Date.now(),
       };
 
@@ -150,7 +151,6 @@ export function addHandlers(app) {
         // user.isLiked = ;
         user.isSkipped = true;
         const savedUser = recommendationsCollection.updateById(user.id, user);
-        console.log('savedUser', savedUser);
         await db.save();
       }
       return res.json(serialized);

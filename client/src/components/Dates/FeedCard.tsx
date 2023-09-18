@@ -66,10 +66,10 @@ export function FeedCard({ user, isMatch }: FeedCardProps) {
         <OnlineStatus online={user.is_online} lastOnline={user.last_active_at} />
         <Typography>{user.extra.distance} метров от вас</Typography>
         <Typography>ID: {user.id}</Typography>
-        <IconButton>
+        <IconButton onClick={onLike}>
           <ThumbUpIcon color="success" />
         </IconButton>
-        <IconButton>
+        <IconButton onClick={onDislike}>
           <ThumbDownIcon color="error" />
         </IconButton>
       </div>

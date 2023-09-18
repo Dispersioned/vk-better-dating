@@ -103,7 +103,7 @@ export function addHandlers(app) {
       const likedColection = db.getCollection('liked');
       likedColection.insert(serialized);
 
-      const recommendationsCollection = db.getCollection('recommendatioons');
+      const recommendationsCollection = db.getCollection('recommendations');
       const user = recommendationsCollection.findById(recipientId);
       if (user) {
         // превалирует над пропущенным
@@ -142,7 +142,7 @@ export function addHandlers(app) {
       const dislikedColection = db.getCollection('disliked');
       dislikedColection.insert(serialized);
 
-      const recommendationsCollection = db.getCollection('recommendatioons');
+      const recommendationsCollection = db.getCollection('recommendations');
       const user = recommendationsCollection.findById(recipientId);
       if (user) {
         // не трогаем, лайк сохраняется всегда

@@ -99,4 +99,5 @@ export const INTERESTS_STATE = {
   cinema: 'кинотеатр',
   melodramas: 'мелодрамы',
   swimming: 'плавание',
+  it: 'IT',
 };

@@ -19,7 +19,7 @@ export function Dates({ dates }: DatesProps) {
   return (
     <div className={styles.layout}>
       <Typography variant="h4" align="center">
-        Анкеты ({dates.users.length}) Лайков дsоступно: {dates.remaining}
+        Анкеты ({dates.users.length}) Лайков доступно: {dates.remaining}
       </Typography>
       <div className={styles.users}>
         {dates.users.map((user) => (

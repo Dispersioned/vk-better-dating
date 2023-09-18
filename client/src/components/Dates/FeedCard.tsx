@@ -30,19 +30,25 @@ export function FeedCard({ user, isMatch }: FeedCardProps) {
         <Typography>{user.extra.distance} метров от вас</Typography>
         <Typography>ID: {user.id}</Typography>
       </div>
-      <div>
-        <Typography>Работа: {user.form.work}</Typography>
-        <Typography>Образование: {user.form.education}</Typography>
-        <Typography>Семейное положение: {renderFromEnum(FAMILY_STATE, user.form.family)}</Typography>
-        <Typography>О себе: {user.form.about}</Typography>
-        <Typography>Знак зодиака: {renderFromEnum(ZODIAC_SIGN_STATE, user.zodiac_sign_id)}</Typography>
-        <Typography>Интересы: {renderFromEnum(INTERESTS_STATE, sortedInterests)}</Typography>
-        <Typography>Рост: {user.form.height}</Typography>
+      <div className={styles.info}>
+        <div className={styles.info_primary}>
+          <div>
+            <Typography>Цель знакомства: {user.form.target}</Typography>
+            <Typography>Семейное положение: {renderFromEnum(FAMILY_STATE, user.form.family)}</Typography>
+            <Typography>О себе: {user.form.about}</Typography>
+            <Typography>Рост: {user.form.height}</Typography>
+          </div>
+          <div>
+            <Typography>Знак зодиака: {renderFromEnum(ZODIAC_SIGN_STATE, user.zodiac_sign_id)}</Typography>
+            <Typography>Работа: {user.form.work}</Typography>
+            <Typography>Образование: {user.form.education}</Typography>
+            <Typography>Интересы: {renderFromEnum(INTERESTS_STATE, sortedInterests)}</Typography>
+            <Typography>Отношение к спорту: {renderFromEnum(SPORT_STATE, user.form.sport)}</Typography>
+          </div>
+        </div>
         <Typography>Музыка: {user.form.music}</Typography>
         <Typography>Фильмы: {user.form.movies}</Typography>
         <Typography>Книги: {user.form.books}</Typography>
-        <Typography>Отношение к спорту: {renderFromEnum(SPORT_STATE, user.form.sport)}</Typography>
-        <Typography>Цель знакомства: {user.form.target}</Typography>
         <Typography>Лейблы: {user.form.labels.join(', ')}</Typography>
         <Typography>Исполнители (парс вк id): {user.form.artists.join(', ')}</Typography>
         <Typography>

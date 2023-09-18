@@ -32,6 +32,7 @@ export function FeedCard({ user, isMatch }: FeedCardProps) {
         vktoken: authData.token,
       });
       console.log('res', res);
+      toastService.success('Лайк засчитан!');
     } catch (e) {
       const msg = getAxiosErrorMessage(e);
       toastService.error(msg || 'Не удалось лайкнуть');
@@ -46,6 +47,7 @@ export function FeedCard({ user, isMatch }: FeedCardProps) {
         vktoken: authData.token,
       });
       console.log('res', res);
+      toastService.success('Дизлайк засчитан!');
     } catch (e) {
       const msg = getAxiosErrorMessage(e);
       toastService.error(msg || 'Не удалось дизлайкнуть');

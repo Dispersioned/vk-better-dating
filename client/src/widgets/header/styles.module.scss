@@ -9,6 +9,12 @@
   align-items: center;
   gap: 10px;
   user-select: none;
+  color: #fff;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .logo {
@@ -24,4 +30,19 @@
   display: flex;
   align-items: center;
   gap: 15px;
+}
+
+.content_primary {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.navlink {
+  color: #fff;
+  font-size: 19px;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }

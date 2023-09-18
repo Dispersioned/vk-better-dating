@@ -150,10 +150,11 @@ export function FeedCard({ user, isMatch }: FeedCardProps) {
       <div className={styles.images}>
         {user.stories.map((story) => (
           <div className={styles.story} key={story.media_index}>
-            <div>
+            {/* todo: make it optional */}
+            {/* <div>
               {story.type === 'video' && <img className={styles.story_media} src={story.blur_url} />}
               {story.type === 'photo' && <img className={styles.story_media} src={story.blur_url} />}
-            </div>
+            </div> */}
             <div>
               {story.type === 'video' && (
                 <video className={styles.story_media} src={story.video_large_url} controls></video>

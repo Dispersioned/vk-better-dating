@@ -9,6 +9,21 @@ export const SPORT_STATE = {
   keep_in_shape: 'Держу форму',
 };
 
+export const ZODIAC_SIGN_STATE = {
+  sagittarius: 'Стрелец',
+  capricornus: 'Козерог',
+  pisces: 'Рыбы',
+  taurus: 'Телец',
+  aquarius: 'Водолей',
+  libra: 'Весы',
+  leo: 'Лев',
+  gemini: 'Близнецы',
+  virgo: 'Дева',
+  cancer: 'Рак',
+  aries: 'Овен',
+  scorpius: 'Скорпион',
+};
+
 // todo добавить иконки из вк
 export const INTERESTS_STATE = {
   cooking: 'кулинария',

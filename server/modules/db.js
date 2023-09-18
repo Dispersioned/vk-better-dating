@@ -20,6 +20,7 @@ export class DataBase {
 
     const recommendationsCollection = this.getCollection('recommendations');
     if (!recommendationsCollection) this.createCollection('recommendations');
+    // todo переименовать в нормальное
     const likesCollection = this.getCollection('likes');
     if (!likesCollection) this.createCollection('likes');
     const likedCollection = this.getCollection('liked');

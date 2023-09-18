@@ -1,7 +1,7 @@
 import { readStream } from '../utils/readStream.js';
 
-export async function like({ token, recipientId, lovinaAgent, sessionKey }) {
-  const res = await fetch('https://dating.vk-apps.ru/api/dating.like', {
+export async function dislike({ token, recipientId, lovinaAgent, sessionKey }) {
+  const res = await fetch('https://dating.vk-apps.ru/api/dating.dislike', {
     headers: {
       accept: 'application/json, text/plain, */*',
       'accept-language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',

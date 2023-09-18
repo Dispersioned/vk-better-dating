@@ -33,12 +33,18 @@ export function AuthProvider({ children }: ThemeProviderProps) {
           setAuthData(authData);
         }
       } catch (e) {
-        toastService.error(getAxiosErrorMessage(e) || 'Токен неправильный или протух. Сгенерийте новый');
-        setParams(null);
+        const msg = getAxiosErrorMessage(e);
+
+        if (msg === 'launch_url_invalid') {
+          toastService.error('Токен неправильный или протух. Сгенерийте новый');
+          setParams(null);
+        } else if (msg === 'Network Error') {
+          toastService.error('Отсутствует связь с локальным сервером');
+        }
       }
       setIsLoading(false);
     }
-    tryLogin();
+    if (!isLoading) tryLogin();
   }, []);
 
   if (isLoading) return <Typography variant="h2">Загрузка...</Typography>;

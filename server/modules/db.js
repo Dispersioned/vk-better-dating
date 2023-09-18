@@ -55,12 +55,13 @@ export class DataBase {
 
   getCollection = (name) => {
     const collection = this.db.collections[name];
-    const items = collection.items;
 
-    if (!items) {
+    if (!collection) {
       console.log(`collection "${name}" does not exist`);
       return null;
     }
+
+    const items = collection.items;
 
     function findAll() {
       return items;

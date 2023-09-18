@@ -78,32 +78,72 @@ export function FeedCard({ user, isMatch }: FeedCardProps) {
       <div className={styles.info}>
         <div className={styles.info_primary}>
           <div>
-            <Typography>Цель знакомства: {renderFromEnum(DATE_TARGET_STATE, user.form.target)}</Typography>
-            <Typography>Семейное положение: {renderFromEnum(FAMILY_STATE, user.form.family)}</Typography>
-            <Typography>О себе: {user.form.about}</Typography>
+            <Typography>
+              <Typography color="#888" component="span">
+                Цель знакомства:
+              </Typography>{' '}
+              {renderFromEnum(DATE_TARGET_STATE, user.form.target)}
+            </Typography>
+            <Typography>
+              <Typography color="#888" component="span">
+                Семейное положение:
+              </Typography>{' '}
+              {renderFromEnum(FAMILY_STATE, user.form.family)}
+            </Typography>
+            <Typography>
+              <Typography color="#888" component="span">
+                О себе:
+              </Typography>{' '}
+              {user.form.about}
+            </Typography>
             <div className={styles.interests}>
-              <Typography>Интересы:</Typography>
+              <Typography color="#888">Интересы:</Typography>
               <div className={styles.interests_list}>
                 {renderFromEnum(INTERESTS_STATE, sortedInterests, {
                   render: (text) => <Chip key={text} className={styles.interests_chip} label={text} />,
                 })}
               </div>
             </div>
-            <Typography>Рост: {user.form.height}</Typography>
+            <Typography>
+              <Typography color="#888" component="span">
+                Рост:
+              </Typography>{' '}
+              {user.form.height}
+            </Typography>
           </div>
           <div className={styles.info_primary_B}>
-            <Typography>Знак зодиака: {renderFromEnum(ZODIAC_SIGN_STATE, user.zodiac_sign_id)}</Typography>
-            <Typography>Работа: {user.form.work}</Typography>
-            <Typography>Образование: {user.form.education}</Typography>
-            <Typography>Отношение к спорту: {renderFromEnum(SPORT_STATE, user.form.sport)}</Typography>
+            <Typography>
+              <Typography color="#888" component="span">
+                Знак зодиака:
+              </Typography>{' '}
+              {renderFromEnum(ZODIAC_SIGN_STATE, user.zodiac_sign_id)}
+            </Typography>
+            <Typography>
+              <Typography color="#888" component="span">
+                Работа:
+              </Typography>{' '}
+              {user.form.work}
+            </Typography>
+            <Typography>
+              <Typography color="#888" component="span">
+                Образование:
+              </Typography>{' '}
+              {user.form.education}
+            </Typography>
+            <Typography>
+              <Typography color="#888" component="span">
+                Отношение к спорту:
+              </Typography>{' '}
+              {renderFromEnum(SPORT_STATE, user.form.sport)}
+            </Typography>
           </div>
         </div>
-        <Typography>Музыка: {user.form.music}</Typography>
-        <Typography>Фильмы: {user.form.movies}</Typography>
-        <Typography>Книги: {user.form.books}</Typography>
-        <Typography>Лейблы: {user.form.labels.join(', ')}</Typography>
-        <Typography>Исполнители (парс вк id): {user.form.artists.join(', ')}</Typography>
-        <Typography>
+        <Typography color="#888">Музыка: {user.form.music}</Typography>
+        <Typography color="#888">Фильмы: {user.form.movies}</Typography>
+        <Typography color="#888">Книги: {user.form.books}</Typography>
+        <Typography color="#888">Лейблы: {user.form.labels.join(', ')}</Typography>
+        <Typography color="#888">Исполнители (парс вк id): {user.form.artists.join(', ')}</Typography>
+        <Typography color="#888">
           Исполнители (доп): {user.form_extension.artists.map((artist) => artist.name).join(', ')}
         </Typography>
       </div>

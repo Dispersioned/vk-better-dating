@@ -12,7 +12,7 @@ export function renderFromEnum(
 ) {
   const renderFunction = options.render;
 
-  if (!value) return 'Не указано';
+  if (!value) return null;
 
   if (Array.isArray(value)) {
     if (renderFunction) {

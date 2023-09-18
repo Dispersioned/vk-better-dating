@@ -46,7 +46,7 @@ export function addHandlers(app) {
     }
   });
 
-  app.post('/likes', async (req, res) => {
+  app.post('/like', async (req, res) => {
     const { vktoken, userId } = req.body;
     try {
       const likes = await getLikes({

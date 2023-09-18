@@ -17,6 +17,12 @@ export class DataBase {
 
     if (this.dbExists()) await this.loadDB();
     else await this.createDB();
+
+    const recommendationsCollection = this.getCollection('recommendations');
+    if (!recommendationsCollection) this.createCollection('recommendations');
+    const likesCollection = this.getCollection('likes');
+    if (!likesCollection) this.createCollection('likes');
+    if (!recommendationsCollection || !likesCollection) await this.save();
   };
 
   loadDB = async () => {

@@ -1,5 +1,5 @@
 import { getDates, getLikes } from 'shared/api';
-import { IDates, IMyself, IVkAuth } from 'shared/types';
+import { IDateUser, IDates, IMyself, IVkAuth } from 'shared/types';
 import { create } from 'zustand';
 
 import { useAuthStore } from './auth.store';
@@ -13,6 +13,7 @@ type VkStore = {
   myself: IMyself | null;
   setMyself: (myself: IMyself) => void;
   fetch: () => void;
+  getMatches: () => IDateUser[] | null;
 };
 
 export const useVkStore = create<VkStore>((set, get) => ({
@@ -37,5 +38,25 @@ export const useVkStore = create<VkStore>((set, get) => ({
       set({ error: e });
     }
     set({ isLoading: false });
+  },
+  getMatches: () => {
+    const { myself, dates } = get();
+
+    if (!myself || !dates) return null;
+
+    const matchedUsers: IDateUser[] = [];
+    const peopleWhoLikedMePhotoUrls = myself.users.map((user) => user.photo_url);
+
+    dates.users.forEach((recommendation) => {
+      const personBlurredPhotoUrls = recommendation.stories.map((story) => story.blur_url);
+
+      personBlurredPhotoUrls.forEach((url) => {
+        if (peopleWhoLikedMePhotoUrls.includes(url)) {
+          matchedUsers.push(recommendation);
+        }
+      });
+    });
+
+    return matchedUsers;
   },
 }));

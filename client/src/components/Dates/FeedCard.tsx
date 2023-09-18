@@ -1,7 +1,13 @@
-import { Chip, Typography } from '@mui/material';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import { Chip, IconButton, Typography } from '@mui/material';
+import { useAuthStore } from 'app/store/auth.store';
 import { OnlineStatus } from 'components/OnlineStatus';
+import { dislike, like } from 'shared/api';
 import { DATE_TARGET_STATE, FAMILY_STATE, INTERESTS_STATE, SPORT_STATE, ZODIAC_SIGN_STATE } from 'shared/config/vk';
+import { toastService } from 'shared/services/toast.service';
 import { IDateUser } from 'shared/types';
+import { getAxiosErrorMessage } from 'shared/utils/getAxiosErrorMessage';
 import { renderFromEnum } from 'shared/utils/renderFromEnum';
 
 import styles from './styles.module.scss';
@@ -12,8 +18,41 @@ type FeedCardProps = {
 };
 
 export function FeedCard({ user, isMatch }: FeedCardProps) {
+  const { authData } = useAuthStore();
   const sortedInterests = [...user.form.interests];
   sortedInterests.sort();
+
+  if (!authData) return null;
+
+  const onLike = async () => {
+    try {
+      const res = await like({
+        userId: authData.user.vk_id,
+        recipientId: user.id,
+        vktoken: authData.token,
+      });
+      console.log('res', res);
+      toastService.success('Лайк засчитан!');
+    } catch (e) {
+      const msg = getAxiosErrorMessage(e);
+      toastService.error(msg || 'Не удалось лайкнуть');
+    }
+  };
+
+  const onDislike = async () => {
+    try {
+      const res = await dislike({
+        userId: authData.user.vk_id,
+        recipientId: user.id,
+        vktoken: authData.token,
+      });
+      console.log('res', res);
+      toastService.success('Дизлайк засчитан!');
+    } catch (e) {
+      const msg = getAxiosErrorMessage(e);
+      toastService.error(msg || 'Не удалось дизлайкнуть');
+    }
+  };
 
   return (
     <div className={styles.user} data-recommendationid={user.id}>
@@ -29,6 +68,12 @@ export function FeedCard({ user, isMatch }: FeedCardProps) {
         <OnlineStatus online={user.is_online} lastOnline={user.last_active_at} />
         <Typography>{user.extra.distance} метров от вас</Typography>
         <Typography>ID: {user.id}</Typography>
+        <IconButton onClick={onLike}>
+          <ThumbUpIcon color="success" />
+        </IconButton>
+        <IconButton onClick={onDislike}>
+          <ThumbDownIcon color="error" />
+        </IconButton>
       </div>
       <div className={styles.info}>
         <div className={styles.info_primary}>

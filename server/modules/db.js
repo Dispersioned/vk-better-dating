@@ -17,6 +17,17 @@ export class DataBase {
 
     if (this.dbExists()) await this.loadDB();
     else await this.createDB();
+
+    const recommendationsCollection = this.getCollection('recommendations');
+    if (!recommendationsCollection) this.createCollection('recommendations');
+    // todo переименовать в нормальное
+    const likesCollection = this.getCollection('likes');
+    if (!likesCollection) this.createCollection('likes');
+    const likedCollection = this.getCollection('liked');
+    if (!likedCollection) this.createCollection('liked');
+    const dislikedCollection = this.getCollection('disliked');
+    if (!dislikedCollection) this.createCollection('disliked');
+    if (!recommendationsCollection || !likesCollection || !likedCollection || !dislikedCollection) await this.save();
   };
 
   loadDB = async () => {
@@ -55,12 +66,13 @@ export class DataBase {
 
   getCollection = (name) => {
     const collection = this.db.collections[name];
-    const items = collection.items;
 
-    if (!items) {
+    if (!collection) {
       console.log(`collection "${name}" does not exist`);
       return null;
     }
+
+    const items = collection.items;
 
     function findAll() {
       return items;
@@ -68,6 +80,16 @@ export class DataBase {
 
     function findById(id) {
       return items.find((item) => item.id === id);
+    }
+
+    function updateById(id, item) {
+      const index = items.findIndex((item) => item.id === id);
+      if (index === -1) {
+        console.log(`can not update, id "${id}" not found in collection "${name}"`);
+        return null;
+      }
+      items[index] = item;
+      return item;
     }
 
     function insert(newItem) {
@@ -96,6 +118,7 @@ export class DataBase {
       findById,
       insert,
       insertUnique,
+      updateById,
     };
 
     return createdCollection;

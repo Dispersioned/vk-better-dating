@@ -3,8 +3,10 @@ import { serializeRecommendations } from './serializers/serializeRecommendations
 import { createLovinaAgent } from './utils/createLovinaAgent.js';
 import { createSessionKey } from './utils/createSessionKey.js';
 import { authVkDating } from './vk-api/authVkDating.js';
+import { dislike } from './vk-api/dislike.js';
 import { getLikes } from './vk-api/getLikes.js';
 import { getRecommendations } from './vk-api/getRecommendations.js';
+import { like } from './vk-api/like.js';
 
 export function addHandlers(app) {
   app.post('/auth-vk-dating', async (req, res) => {
@@ -60,12 +62,10 @@ export function addHandlers(app) {
           ...likes,
           users: [...likes.users],
         };
-
         copy.users = copy.users.map((user) => ({
           ...user,
           id: user.extra.hash,
         }));
-
         return copy;
       }
 
@@ -75,6 +75,84 @@ export function addHandlers(app) {
 
       if (uniqueItems.length) await db.save();
 
+      return res.json(serialized);
+    } catch (e) {
+      console.log(e);
+      return res.status(404).json(e);
+    }
+  });
+
+  app.post('/like', async (req, res) => {
+    const { vktoken, userId, recipientId } = req.body;
+    try {
+      const likedInfo = await like({
+        token: vktoken,
+        recipientId,
+        sessionKey: createSessionKey(userId),
+        lovinaAgent: createLovinaAgent(userId),
+      });
+
+      // console.log('liked', likedInfo);
+
+      const serialized = {
+        id: recipientId,
+        userId: recipientId,
+        isMatchMissed: likedInfo.is_match_missed,
+        date: Date.now(),
+      };
+
+      const likedColection = db.getCollection('liked');
+      likedColection.insert(serialized);
+
+      const recommendationsCollection = db.getCollection('recommendations');
+      const user = recommendationsCollection.findById(recipientId);
+      if (user) {
+        // превалирует над пропущенным
+        user.isLiked = true;
+        // user.isSkipped = false;
+        const savedUser = recommendationsCollection.updateById(user.id, user);
+        await db.save();
+      }
+
+      return res.json(serialized);
+    } catch (e) {
+      console.log(e);
+      return res.status(404).json(e);
+    }
+  });
+
+  app.post('/dislike', async (req, res) => {
+    const { vktoken, userId, recipientId } = req.body;
+    try {
+      const dislikeInfo = await dislike({
+        token: vktoken,
+        recipientId,
+        sessionKey: createSessionKey(userId),
+        lovinaAgent: createLovinaAgent(userId),
+      });
+
+      // console.log('disliked', dislikeInfo);
+
+      const serialized = {
+        id: recipientId,
+        userId: recipientId,
+        isMatchMissed: dislikeInfo.is_match_missed,
+        date: Date.now(),
+      };
+
+      const dislikedColection = db.getCollection('disliked');
+      dislikedColection.insert(serialized);
+
+      const recommendationsCollection = db.getCollection('recommendations');
+      const user = recommendationsCollection.findById(recipientId);
+      if (user) {
+        // не трогаем, лайк сохраняется всегда
+        // но это не точно
+        // user.isLiked = ;
+        user.isSkipped = true;
+        const savedUser = recommendationsCollection.updateById(user.id, user);
+        await db.save();
+      }
       return res.json(serialized);
     } catch (e) {
       console.log(e);

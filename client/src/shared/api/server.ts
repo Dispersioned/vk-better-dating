@@ -1,10 +1,16 @@
-import { IDates, IMyself, IVkAuth } from 'shared/types';
+import { IDates, ILikeOrDislikeResponse, IMyself, IVkAuth } from 'shared/types';
 
 import { api } from '.';
 
 type Payload = {
   vktoken: string;
   userId: number;
+};
+
+type LikeOrDislikePayload = {
+  vktoken: string;
+  userId: number;
+  recipientId: number;
 };
 
 export async function getLikes({ vktoken, userId }: Payload) {
@@ -37,5 +43,15 @@ export async function login(params: string) {
   const res = await api.post<IVkAuth>('auth-vk-dating', {
     authParams: params,
   });
+  return res.data;
+}
+
+export async function like(payload: LikeOrDislikePayload) {
+  const res = await api.post<ILikeOrDislikeResponse>('like', payload);
+  return res.data;
+}
+
+export async function dislike(payload: LikeOrDislikePayload) {
+  const res = await api.post<ILikeOrDislikeResponse>('dislike', payload);
   return res.data;
 }

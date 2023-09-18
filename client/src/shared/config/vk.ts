@@ -98,5 +98,9 @@ export const INTERESTS_STATE = {
   handmade: 'рукоделие',
   cinema: 'кинотеатр',
   melodramas: 'мелодрамы',
+  dramas: 'драмы',
+  classical_music: 'классическая музыка',
   swimming: 'плавание',
+  it: 'IT',
+  biking: 'мотоциклы',
 };

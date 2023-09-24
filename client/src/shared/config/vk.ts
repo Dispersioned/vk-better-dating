@@ -50,6 +50,8 @@ export const INTERESTS_STATE = {
   gardening: 'садоводство',
   volunteering: 'волонтерство',
   weightlifting: 'пауэрлифтинг',
+  figure_skating: 'фигурное катание',
+  fishing: 'рыбалка',
   // еда
   sushi: 'суши',
   pizza: 'пицца',
@@ -65,6 +67,7 @@ export const INTERESTS_STATE = {
   snakes: 'змеи',
   rabbits: 'кролики',
   hamsters: 'хомячки',
+  lizards: 'ящерицы',
   // мероприятия
   // места
   fitness_gym: 'спортзал',
@@ -97,6 +100,7 @@ export const INTERESTS_STATE = {
   action_movie: 'боевики',
   historical_films: 'исторические фильмы',
   metal_music: 'хэви металл',
+  electronic_music: 'электронная музыка',
   // раздел "люблю"
   movies: 'фильмы',
   art: 'искусство',
@@ -106,7 +110,9 @@ export const INTERESTS_STATE = {
   football: 'футбол',
   volleyball: 'воллейбол',
   basketball: 'баскетбол',
+  snowboard: 'сноубординг',
   makeup: 'мейкап',
+  athletics: 'легкая атлетика',
   bicycle: 'велосипед',
   cars: 'машины',
   design: 'дизайнинг',
@@ -123,6 +129,7 @@ export const INTERESTS_STATE = {
   run: 'бег',
   skateboard: 'скейтборд',
   vegetarianism: 'вегетарианство',
+  veganism: 'веганство',
   cartoons: 'мультики',
   handmade: 'рукоделие',
   it: 'IT',
@@ -130,7 +137,8 @@ export const INTERESTS_STATE = {
   scooter: 'скутеры',
   birds: 'птицы',
   roller_skates: 'езда на роликах',
-
+  cruises: 'круизы',
+  yo_yo: 'йо-йо',
   // кто я?
   music_lover: 'меломан',
 };

@@ -50,6 +50,8 @@ export const INTERESTS_STATE = {
   gardening: 'садоводство',
   volunteering: 'волонтерство',
   weightlifting: 'пауэрлифтинг',
+  figure_skating: 'фигурное катание',
+  fishing: 'рыбалка',
   // еда
   sushi: 'суши',
   pizza: 'пицца',
@@ -108,7 +110,9 @@ export const INTERESTS_STATE = {
   football: 'футбол',
   volleyball: 'воллейбол',
   basketball: 'баскетбол',
+  snowboard: 'сноубординг',
   makeup: 'мейкап',
+  athletics: 'легкая атлетика',
   bicycle: 'велосипед',
   cars: 'машины',
   design: 'дизайнинг',

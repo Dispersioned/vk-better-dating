@@ -1,6 +1,7 @@
 import { Typography } from '@mui/material';
 import { useAuthStore } from 'app/store/auth.store';
 import { useTokenStore } from 'app/store/token.store';
+import { BaseLayout } from 'components/base/base-layout';
 import { PropsWithChildren, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from 'shared/api';
@@ -47,7 +48,12 @@ export function AuthProvider({ children }: ThemeProviderProps) {
     if (!isLoading) tryLogin();
   }, []);
 
-  if (isLoading) return <Typography variant="h2">Загрузка...</Typography>;
+  if (isLoading)
+    return (
+      <BaseLayout>
+        <Typography variant="h2">Загрузка...</Typography>;
+      </BaseLayout>
+    );
 
   return <>{children}</>;
 }

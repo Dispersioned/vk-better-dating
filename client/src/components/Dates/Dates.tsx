@@ -12,6 +12,7 @@ type DatesProps = {
 export function Dates({ dates }: DatesProps) {
   const { matches } = useVkStore();
 
+  console.log('matches', matches);
   if (!matches) return null;
 
   const matchedUserIds = matches.map((match) => match.user.id);

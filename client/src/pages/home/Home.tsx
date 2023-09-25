@@ -16,7 +16,7 @@ export function Home() {
   return (
     <BaseLayout>
       {vktoken ? (
-        <Data vktoken={vktoken} />
+        <Data />
       ) : (
         <div className={styles.helper}>
           <Typography variant="h4" paddingTop={10}>

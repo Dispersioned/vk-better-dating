@@ -1,32 +1,44 @@
 import { Typography } from '@mui/material';
-import { useVkStore } from 'app/store/vk.store';
+import { useQuery } from '@tanstack/react-query';
+import { useAuthStore } from 'app/store/auth.store';
 import { Dates } from 'components/Dates';
-import { BaseLayout } from 'components/base/base-layout';
-import { useEffect } from 'react';
+import { getDates } from 'shared/api';
 
 import styles from './styles.module.scss';
 
-type DataProps = {
-  vktoken: string;
-};
+// todo: rename to recommendations or feed
+export function Data() {
+  // const { isLoading, fetch, myself, dates } = useVkStore();
 
-export function Data({ vktoken }: DataProps) {
-  const { isLoading, fetch, myself, dates } = useVkStore();
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     await fetch();
+  //   }
 
-  useEffect(() => {
-    async function fetchData() {
-      await fetch();
-    }
+  //   if (!myself || !dates) fetchData();
+  // }, []);
 
-    if (!myself || !dates) fetchData();
-  }, []);
+  const { authData } = useAuthStore();
 
-  if (isLoading)
-    return (
-      <BaseLayout>
-        <Typography variant="h2">Loading</Typography>;
-      </BaseLayout>
-    );
+  if (!authData) return null;
 
-  return <div className={styles.layout}>{dates && <Dates dates={dates} />}</div>;
+  const vktoken = authData.token;
+  const userId = authData.user.vk_id;
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['recommendations'],
+    queryFn: () => {
+      return getDates({ vktoken, userId });
+    },
+  });
+
+  if (isLoading) {
+    return <Typography variant="h2">Загрузка...</Typography>;
+  }
+
+  if (!data) {
+    return <Typography variant="h2">Упс, ошибка</Typography>;
+  }
+
+  return <div className={styles.layout}>{data && <Dates dates={data} />}</div>;
 }

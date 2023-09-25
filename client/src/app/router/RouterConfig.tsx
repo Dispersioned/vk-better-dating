@@ -8,7 +8,7 @@ export const ROUTES = {
   home: '/',
   settings: '/settings',
   auth: '/auth',
-  myLikes: 'my-likes',
+  myLikes: '/my-likes',
 } as const;
 
 export const ROUTING: IRoute[] = [

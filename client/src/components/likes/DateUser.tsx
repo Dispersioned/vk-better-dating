@@ -1,8 +1,7 @@
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import { IconButton, Typography } from '@mui/material';
-import { toastService } from 'shared/services/toast.service';
-import { IDateUser, IRecommendationUserInfo, IUser } from 'shared/types';
+import { Typography } from '@mui/material';
+import { IRecommendationUserInfo, IUser } from 'shared/types';
 
+import { MatchView } from './MatchView';
 import styles from './styles.module.scss';
 
 type DateUserProps = {
@@ -11,27 +10,11 @@ type DateUserProps = {
 };
 
 export function DateUser({ user, match }: DateUserProps) {
-  const onViewMatch = () => {
-    if (!match) return;
-
-    // TODO открывать форму с анкетой пользователя, а не пролистывать
-    const matchCardAnchor = document.querySelector(`[data-recommendationId="${match.id}"]`);
-
-    if (!matchCardAnchor) toastService.error(`Такой анкеты нет в ленте`);
-    matchCardAnchor?.scrollIntoView({
-      behavior: 'smooth',
-    });
-  };
-
   return (
     <div className={styles.user}>
       <div className={styles.user_header}>
         <div className={styles.header_primary}>
-          {match && (
-            <IconButton onClick={onViewMatch}>
-              <VisibilityIcon />
-            </IconButton>
-          )}
+          {match && <MatchView match={match} />}
           <Typography variant="h5">
             {user.name} {match?.user.age}
           </Typography>

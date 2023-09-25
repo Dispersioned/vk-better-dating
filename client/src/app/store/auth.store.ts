@@ -11,6 +11,7 @@ type VkStore = {
 export const useAuthStore = create<VkStore>((set, get) => ({
   isLoading: false,
   setIsLoading: (isLoading) => set({ isLoading }),
+  // TODO: Возможно не стоит пихать authData сюда и грузить её напрямую через tanstack query
   authData: null,
   setAuthData: (authData) => set({ authData }),
 }));

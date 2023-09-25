@@ -1,5 +1,5 @@
 import { Auth } from 'pages/auth';
-import { Home } from 'pages/home';
+import { HomePage } from 'pages/home-page';
 import { MyLikesPage } from 'pages/my-likes-page';
 import { SettingsPage } from 'pages/settings-page';
 import { IRoute } from 'shared/types';
@@ -14,7 +14,7 @@ export const ROUTES = {
 export const ROUTING: IRoute[] = [
   {
     private: true,
-    element: <Home />,
+    element: <HomePage />,
     path: ROUTES.home,
   },
   {

@@ -6,7 +6,7 @@ import { Data } from 'components/data';
 
 import styles from './styles.module.scss';
 
-export function Home() {
+export function HomePage() {
   const { authData } = useAuthStore();
 
   if (!authData) return null;

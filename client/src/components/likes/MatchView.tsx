@@ -1,17 +1,5 @@
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import {
-  Avatar,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemButton,
-  ListItemText,
-} from '@mui/material';
-import { blue } from '@mui/material/colors';
+import { Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import { FeedCard } from 'components/Dates/FeedCard';
 import { useState } from 'react';
 import { IRecommendationUserInfo } from 'shared/types';

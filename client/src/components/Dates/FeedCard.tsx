@@ -3,6 +3,7 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { Chip, IconButton, Typography } from '@mui/material';
 import { useAuthStore } from 'app/store/auth.store';
 import { OnlineStatus } from 'components/OnlineStatus';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { dislike, like } from 'shared/api';
 import { DATE_TARGET_STATE, FAMILY_STATE, INTERESTS_STATE, SPORT_STATE, ZODIAC_SIGN_STATE } from 'shared/config/vk';
 import { toastService } from 'shared/services/toast.service';
@@ -160,7 +161,9 @@ export function FeedCard({ user, isMatch }: FeedCardProps) {
               {story.type === 'video' && (
                 <video className={styles.story_media} src={story.video_large_url} controls></video>
               )}
-              {story.type === 'photo' && <img className={styles.story_media} src={story.large_url} />}
+              {story.type === 'photo' && (
+                <LazyLoadImage className={styles.story_media} src={story.large_url} width="auto" />
+              )}
             </div>
           </div>
         ))}

@@ -1,4 +1,4 @@
-import { Auth } from 'pages/auth';
+import { AuthPage } from 'pages/auth-page';
 import { HomePage } from 'pages/home-page';
 import { MyLikesPage } from 'pages/my-likes-page';
 import { SettingsPage } from 'pages/settings-page';
@@ -29,7 +29,7 @@ export const ROUTING: IRoute[] = [
   },
   {
     private: false,
-    element: <Auth />,
+    element: <AuthPage />,
     path: ROUTES.auth,
   },
 ];

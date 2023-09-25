@@ -7,7 +7,7 @@ import { Instructions } from './Instructions';
 import { NewUserWelcome } from './NewUserWelcome';
 import styles from './styles.module.scss';
 
-export function Auth() {
+export function AuthPage() {
   const isViewed = useWelcomeStore((state) => state.isViewed);
 
   return (

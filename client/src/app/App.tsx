@@ -5,20 +5,23 @@ import 'react-toastify/dist/ReactToastify.css';
 import { theme } from 'shared/config/theme';
 
 import { AuthProvider } from './providers/AuthProvider';
+import { TanstackQueryProvider } from './providers/TanstackQueryProvider';
 import { AppRouter } from './router/AppRouter';
 import './styles/index.scss';
 
 export function App() {
   return (
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <StyledEngineProvider injectFirst>
-          <AuthProvider>
-            <AppRouter />
-          </AuthProvider>
-          <ToastContainer newestOnTop limit={4} />
-        </StyledEngineProvider>
-      </ThemeProvider>
-    </BrowserRouter>
+    <TanstackQueryProvider>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <StyledEngineProvider injectFirst>
+            <AuthProvider>
+              <AppRouter />
+            </AuthProvider>
+            <ToastContainer newestOnTop limit={4} />
+          </StyledEngineProvider>
+        </ThemeProvider>
+      </BrowserRouter>
+    </TanstackQueryProvider>
   );
 }

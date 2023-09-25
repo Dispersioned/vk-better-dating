@@ -1,26 +1,44 @@
 import { Typography } from '@mui/material';
-import { useVkStore } from 'app/store/vk.store';
+import { useQuery } from '@tanstack/react-query';
+import { useAuthStore } from 'app/store/auth.store';
 import { BaseLayout } from 'components/base/base-layout';
 import { Likes } from 'components/likes';
-import { useEffect } from 'react';
+import { getDates, getLikes } from 'shared/api';
 
 export function MyLikesPage() {
-  const { isLoading, fetch, myself, dates } = useVkStore();
+  // TODO: дублирующаяся логика между страницами, вынести в хук загрузки данных
+  const { authData } = useAuthStore();
 
-  useEffect(() => {
-    async function fetchData() {
-      await fetch();
-    }
+  if (!authData) return null;
 
-    if (!myself || !dates) fetchData();
-  }, []);
+  const vktoken = authData.token;
+  const userId = authData.user.vk_id;
 
-  if (isLoading)
-    return (
-      <BaseLayout>
-        <Typography variant="h2">Loading</Typography>;
-      </BaseLayout>
-    );
+  const { data: dates, isLoading: isLoadingDates } = useQuery({
+    queryKey: ['dates'],
+    queryFn: () => {
+      return getDates({ vktoken, userId });
+    },
+  });
 
-  return <BaseLayout>{myself && <Likes myself={myself} />}</BaseLayout>;
+  const { data: profile, isLoading: isLoadingProfile } = useQuery({
+    queryKey: ['profile'],
+    queryFn: () => {
+      return getLikes({ vktoken, userId });
+    },
+  });
+
+  if (isLoadingDates || isLoadingProfile) {
+    return <Typography variant="h2">Загрузка...</Typography>;
+  }
+
+  if (!dates || !profile) {
+    return <Typography variant="h2">Упс, ошибка</Typography>;
+  }
+
+  return (
+    <BaseLayout>
+      <Likes />
+    </BaseLayout>
+  );
 }

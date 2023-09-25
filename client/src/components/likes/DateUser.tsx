@@ -14,6 +14,7 @@ export function DateUser({ user, match }: DateUserProps) {
   const onViewMatch = () => {
     if (!match) return;
 
+    // TODO открывать форму с анкетой пользователя, а не пролистывать
     const matchCardAnchor = document.querySelector(`[data-recommendationId="${match.id}"]`);
 
     if (!matchCardAnchor) toastService.error(`Такой анкеты нет в ленте`);

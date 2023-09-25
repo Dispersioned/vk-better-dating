@@ -10,7 +10,7 @@ export type IUser = {
   extra: { hash: string };
 };
 
-export type IMyself = {
+export type IProfile = {
   like_to_you_count: number;
   need_continue_request: boolean;
   new_like_to_you_count: number;

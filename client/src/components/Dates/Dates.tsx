@@ -1,18 +1,35 @@
 import { Typography } from '@mui/material';
-import { useVkStore } from 'app/store/vk.store';
-import { IDates } from 'shared/types';
+import { queryClient } from 'shared/api';
+import { IDates, IMatchInfo, IProfile } from 'shared/types';
 
 import { FeedCard } from './FeedCard';
 import styles from './styles.module.scss';
 
-type DatesProps = {
-  dates: IDates;
-};
+export function Dates() {
+  const dates = queryClient.getQueryData<IDates>(['dates']);
+  const profile = queryClient.getQueryData<IProfile>(['profile']);
 
-export function Dates({ dates }: DatesProps) {
-  const { matches } = useVkStore();
+  if (!dates || !profile) return null;
 
-  if (!matches) return null;
+  /*
+  TODO: todo вынести куда-нибудь скорее всегда в стор
+  TODO: данная логика переиспользуется, вынести в хук
+  */
+  const matches: IMatchInfo[] = [];
+  const peopleWhoLikedMePhotoUrls = profile.users.map((user) => user.photo_url);
+
+  dates.users.forEach((recommendation) => {
+    const personBlurredPhotoUrls = recommendation.user.stories.map((story) => story.blur_url);
+
+    personBlurredPhotoUrls.forEach((url) => {
+      if (peopleWhoLikedMePhotoUrls.includes(url)) {
+        matches.push({
+          user: recommendation,
+          matchedByUrl: url,
+        });
+      }
+    });
+  });
 
   const matchedUserIds = matches.map((match) => match.user.id);
 

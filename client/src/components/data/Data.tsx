@@ -1,32 +1,45 @@
 import { Typography } from '@mui/material';
-import { useVkStore } from 'app/store/vk.store';
+import { useQuery } from '@tanstack/react-query';
+import { useAuthStore } from 'app/store/auth.store';
 import { Dates } from 'components/Dates';
-import { BaseLayout } from 'components/base/base-layout';
-import { useEffect } from 'react';
+import { getDates, getLikes } from 'shared/api';
 
 import styles from './styles.module.scss';
 
-type DataProps = {
-  vktoken: string;
-};
+// todo: rename to recommendations or feed
+export function Data() {
+  const { authData } = useAuthStore();
 
-export function Data({ vktoken }: DataProps) {
-  const { isLoading, fetch, myself, dates } = useVkStore();
+  if (!authData) return null;
 
-  useEffect(() => {
-    async function fetchData() {
-      await fetch();
-    }
+  const vktoken = authData.token;
+  const userId = authData.user.vk_id;
 
-    if (!myself || !dates) fetchData();
-  }, []);
+  const { data: dates, isLoading: isLoadingDates } = useQuery({
+    queryKey: ['dates'],
+    queryFn: () => {
+      return getDates({ vktoken, userId });
+    },
+  });
 
-  if (isLoading)
-    return (
-      <BaseLayout>
-        <Typography variant="h2">Loading</Typography>;
-      </BaseLayout>
-    );
+  const { data: profile, isLoading: isLoadingProfile } = useQuery({
+    queryKey: ['profile'],
+    queryFn: () => {
+      return getLikes({ vktoken, userId });
+    },
+  });
 
-  return <div className={styles.layout}>{dates && <Dates dates={dates} />}</div>;
+  if (isLoadingDates || isLoadingProfile) {
+    return <Typography variant="h2">Загрузка...</Typography>;
+  }
+
+  if (!dates || !profile) {
+    return <Typography variant="h2">Упс, ошибка</Typography>;
+  }
+
+  return (
+    <div className={styles.layout}>
+      <Dates />
+    </div>
+  );
 }

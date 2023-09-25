@@ -1,4 +1,4 @@
-import { IDates, ILikeOrDislikeResponse, IMyself, IVkAuth } from 'shared/types';
+import { IDates, ILikeOrDislikeResponse, IProfile, IVkAuth } from 'shared/types';
 
 import { api } from '.';
 
@@ -16,7 +16,7 @@ type LikeOrDislikePayload = {
 export async function getLikes({ vktoken, userId }: Payload) {
   // todo: перенести в компоненты обработку ошибок
   try {
-    const res = await api.post<IMyself>('likes', {
+    const res = await api.post<IProfile>('likes', {
       vktoken,
       userId,
     });

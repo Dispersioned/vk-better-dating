@@ -1,7 +1,7 @@
 import { Button, Container, Link as MUILink, Typography } from '@mui/material';
+import { ROUTES } from 'app/router/RouterConfig';
 import { useAuthStore } from 'app/store/auth.store';
 import { useTokenStore } from 'app/store/token.store';
-import { useVkStore } from 'app/store/vk.store';
 import logoIcon from 'assets/icons/logo.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { APP_VERSION } from 'shared/config/meta';
@@ -31,9 +31,14 @@ export function Header() {
               </Typography>
             </Link>
             {authData && (
-              <Link to="/settings" className={styles.navlink}>
-                settings
-              </Link>
+              <>
+                <Link to={ROUTES.myLikes} className={styles.navlink}>
+                  my likes
+                </Link>
+                <Link to={ROUTES.settings} className={styles.navlink}>
+                  settings
+                </Link>
+              </>
             )}
           </div>
           <div className={styles.header_aside}>

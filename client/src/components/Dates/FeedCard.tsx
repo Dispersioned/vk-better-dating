@@ -17,6 +17,7 @@ type FeedCardProps = {
   isMatch: boolean;
 };
 
+// TODO: вынести в отдельный компонент, много где используется
 export function FeedCard({ user, isMatch }: FeedCardProps) {
   const { authData } = useAuthStore();
   const sortedInterests = [...user.form.interests];

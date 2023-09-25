@@ -29,11 +29,19 @@ export function MyLikesPage() {
   });
 
   if (isLoadingDates || isLoadingProfile) {
-    return <Typography variant="h2">Загрузка...</Typography>;
+    return (
+      <BaseLayout>
+        <Typography variant="h2">Загрузка...</Typography>;
+      </BaseLayout>
+    );
   }
 
   if (!dates || !profile) {
-    return <Typography variant="h2">Упс, ошибка</Typography>;
+    return (
+      <BaseLayout>
+        <Typography variant="h2">Упс, ошибка</Typography>;
+      </BaseLayout>
+    );
   }
 
   return (

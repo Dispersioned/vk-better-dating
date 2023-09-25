@@ -1,10 +1,9 @@
 import { Typography } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
 import { useAuthStore } from 'app/store/auth.store';
-import whereRequestIcon from 'assets/whereRequest.png';
+import { Dates } from 'components/Dates';
 import { BaseLayout } from 'components/base/base-layout';
-import { Data } from 'components/data';
-
-import styles from './styles.module.scss';
+import { getDates, getLikes } from 'shared/api';
 
 export function HomePage() {
   const { authData } = useAuthStore();
@@ -12,22 +11,41 @@ export function HomePage() {
   if (!authData) return null;
 
   const vktoken = authData.token;
+  const userId = authData.user.vk_id;
+
+  const { data: dates, isLoading: isLoadingDates } = useQuery({
+    queryKey: ['dates'],
+    queryFn: () => {
+      return getDates({ vktoken, userId });
+    },
+  });
+
+  const { data: profile, isLoading: isLoadingProfile } = useQuery({
+    queryKey: ['profile'],
+    queryFn: () => {
+      return getLikes({ vktoken, userId });
+    },
+  });
+
+  if (isLoadingDates || isLoadingProfile) {
+    return (
+      <BaseLayout>
+        <Typography variant="h2">Загрузка...</Typography>;
+      </BaseLayout>
+    );
+  }
+
+  if (!dates || !profile) {
+    return (
+      <BaseLayout>
+        <Typography variant="h2">Упс, ошибка</Typography>;
+      </BaseLayout>
+    );
+  }
 
   return (
     <BaseLayout>
-      {vktoken ? (
-        <Data />
-      ) : (
-        <div className={styles.helper}>
-          <Typography variant="h4" paddingTop={10}>
-            To continue provide VK API token
-          </Typography>
-          <Typography fontSize={20}>
-            It can be done by viewing headers of <i>dating.getRecommendedUsers</i> network request on vk dating homepage
-          </Typography>
-          <img src={whereRequestIcon} alt="" />
-        </div>
-      )}
+      <Dates />
     </BaseLayout>
   );
 }

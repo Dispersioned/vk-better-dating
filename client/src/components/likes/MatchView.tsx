@@ -1,5 +1,5 @@
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
+import { Dialog, DialogContent, DialogContentText, DialogTitle, IconButton } from '@mui/material';
 import { FeedCard } from 'components/Dates/FeedCard';
 import { useState } from 'react';
 import { IRecommendationUserInfo } from 'shared/types';
@@ -18,6 +18,7 @@ export function MatchView({ match }: MatchViewProps) {
       <Dialog onClose={() => setOpen(false)} open={open} maxWidth={false}>
         <DialogTitle>Анкета</DialogTitle>
         <DialogContent>
+          {match.isSkipped && <DialogContentText>Вы дизлайкнули данную анкету</DialogContentText>}
           <FeedCard key={match.id} user={match.user} isMatch={true} />
         </DialogContent>
       </Dialog>

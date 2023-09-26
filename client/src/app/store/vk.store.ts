@@ -11,7 +11,7 @@ export const useVkStore = create<VkStore>((set, get) => ({
   matches: null,
   updateMatches: (profile, dates) => {
     const matches: IMatchInfo[] = [];
-    const peopleWhoLikedMePhotoUrls = profile.users.map((user) => user.photo_url);
+    const peopleWhoLikedMePhotoUrls = profile.users.map((userInfo) => userInfo.user.photo_url);
 
     dates.users.forEach((recommendation) => {
       const personBlurredPhotoUrls = recommendation.user.stories.map((story) => story.blur_url);

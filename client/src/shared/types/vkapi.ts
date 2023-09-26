@@ -15,7 +15,10 @@ export type IProfile = {
   need_continue_request: boolean;
   new_like_to_you_count: number;
   server_time: string;
-  users: IUser[];
+  users: Array<{
+    userdb?: IRecommendationUserInfo;
+    user: IUser;
+  }>;
 };
 
 // todo

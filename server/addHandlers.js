@@ -58,10 +58,7 @@ export function addHandlers(app) {
       });
 
       function serializeToDb(likes) {
-        const copy = {
-          ...likes,
-          users: [...likes.users],
-        };
+        const copy = JSON.parse(JSON.stringify(likes));
         copy.users = copy.users.map((user) => ({
           ...user,
           id: user.extra.hash,
@@ -75,7 +72,24 @@ export function addHandlers(app) {
 
       if (uniqueItems.length) await db.save();
 
-      return res.json(serialized);
+      const recommendationsCollection = db.getCollection('recommendations');
+      let serialized2 = JSON.parse(JSON.stringify(serialized));
+
+      // console.log('serialized2', serialized2.users.length);
+      serialized2.users = serialized2.users.map((user) => {
+        const userDb = recommendationsCollection.items.find((item) =>
+          item.user.stories.some((story) => story.blur_url === user.photo_url)
+        );
+
+        // console.log('userDb', userDb);
+
+        return {
+          userdb: userDb,
+          user,
+        };
+      });
+
+      return res.json(serialized2);
     } catch (e) {
       console.log(e);
       return res.status(404).json(e);

@@ -69,6 +69,7 @@ export const INTERESTS_STATE = {
   rabbits: 'кролики',
   hamsters: 'хомячки',
   lizards: 'ящерицы',
+  turtles: 'черепахи',
   // мероприятия
   // места
   fitness_gym: 'спортзал',
@@ -111,6 +112,7 @@ export const INTERESTS_STATE = {
   melodramas: 'мелодрамы',
   dramas: 'драмы',
   classical_music: 'классическая музыка',
+  techno_music: 'техно',
   action_movie: 'боевики',
   historical_films: 'исторические фильмы',
   metal_music: 'хэви металл',
@@ -136,6 +138,7 @@ export const INTERESTS_STATE = {
   vegetarianism: 'вегетарианство',
   veganism: 'веганство',
   cartoons: 'мультики',
+  excursions: 'экскурсии',
   handmade: 'рукоделие',
   it: 'IT',
   scooter: 'скутеры',

@@ -37,7 +37,7 @@ export function Form() {
         size="small"
         label="Введи в меня свои параметры, семпай"
       />
-      <Button disabled={!canSubmit} onClick={onSubmit}>
+      <Button color="success" disabled={!canSubmit} onClick={onSubmit}>
         Поехали
       </Button>
     </div>

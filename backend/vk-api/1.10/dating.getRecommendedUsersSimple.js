@@ -1,18 +1,19 @@
 import { readStream } from '../../utils/readStream.js';
 
-authSignIn({
-  launchUrl:
-    'vk_access_token_settings=&vk_app_id=7058363&vk_are_notifications_enabled=0&vk_experiment=eyI2NjQ1IjowfQ&vk_is_app_user=1&vk_is_favorite=0&vk_language=ru&vk_platform=desktop_web&vk_ref=other&vk_ts=1703699691&vk_user_id=241538483&sign=LoR2lCJJovVHNTlXdMivXUZ3A6AROf1CiWYYIWvW-Zg',
+datingGetRecommendedUsersSimple({
+  token:
+    'd0Y9Ex6Pi/M80a3mNf0IgpHxuLMjCzlPhbuvOL6y/GqnIztuGq+4rLgFyTOTVDDumBD+zZ26FLgDPxKVv8CHi0vr/TU1VzH/eooVsT4T0ttlL7po8SHguRcGC9gL4l8mimAMHQI2Z6aHwljLRzgQhaYyfs5s6pEO6ZcwQcJjbGU=',
 });
 
-export async function authSignIn(payload) {
+export async function datingGetRecommendedUsersSimple(payload) {
   const fd = new FormData();
-  fd.append('launch_url', '?' + payload.launchUrl);
+  fd.append('count', payload.count || 2);
+  fd.append('_token', payload.token);
   fd.append('_agent', payload.agent || '');
   fd.append('_session', payload.session || '');
   fd.append('_v', '1.10');
 
-  const res = await fetch('https://dating.vk-apps.ru/api/auth.signIn', {
+  const res = await fetch('https://dating.vk-apps.ru/api/dating.getRecommendedUsersSimple', {
     headers: {
       accept: 'application/json, text/plain, */*',
       'accept-language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',

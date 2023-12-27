@@ -1,13 +1,13 @@
 import { readStream } from '../../utils/readStream.js';
 
-datingGetRecommendedUsersSimple({
-  token:
-    'd0Y9Ex6Pi/M80a3mNf0IgpHxuLMjCzlPhbuvOL6y/GqnIztuGq+4rLgFyTOTVDDumBD+zZ26FLgDPxKVv8CHi0vr/TU1VzH/eooVsT4T0ttlL7po8SHguRcGC9gL4l8mimAMHQI2Z6aHwljLRzgQhaYyfs5s6pEO6ZcwQcJjbGU=',
-});
+// datingGetRecommendedUsersSimple({
+//   token:
+//     'd0Y9Ex6Pi/M80a3mNf0IgpHxuLMjCzlPhbuvOL6y/GqnIztuGq+4rLgFyTOTVDDumBD+zZ26FLgDPxKVv8CHi0vr/TU1VzH/eooVsT4T0ttlL7po8SHguRcGC9gL4l8mimAMHQI2Z6aHwljLRzgQhaYyfs5s6pEO6ZcwQcJjbGU=',
+// });
 
 export async function datingGetRecommendedUsersSimple(payload) {
   const fd = new FormData();
-  fd.append('count', payload.count || 2);
+  fd.append('count', payload.count || 4);
   fd.append('_token', payload.token);
   fd.append('_agent', payload.agent || '');
   fd.append('_session', payload.session || '');
@@ -34,7 +34,6 @@ export async function datingGetRecommendedUsersSimple(payload) {
 
   const result = await readStream(res);
   const parsed = JSON.parse(result);
-  console.log('parsed', parsed);
   if (!res.ok) throw parsed;
   return parsed;
 }

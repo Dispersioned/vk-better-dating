@@ -3,10 +3,10 @@
 // import { port } from './config/consts.js';
 // import { db } from './modules/db.js';
 
-import { connect, model, mongoose } from 'mongoose';
+import { mongoose } from 'mongoose';
 import { UserModel } from './schema/user.js';
-import { readFileSync } from 'fs';
 import { authSignIn } from './vk-api/1.10/auth.signIn.js';
+import { datingGetLikeToYouUsers } from './vk-api/1.10/dating.getLikeToYouUsers.js';
 import { datingGetRecommendedUsersSimple } from './vk-api/1.10/dating.getRecommendedUsersSimple.js';
 
 // async function start() {
@@ -45,16 +45,21 @@ async function start() {
     const launchUrl =
       'vk_access_token_settings=&vk_app_id=7058363&vk_are_notifications_enabled=0&vk_experiment=eyI2NjQ1IjowfQ&vk_is_app_user=1&vk_is_favorite=0&vk_language=ru&vk_platform=desktop_web&vk_ref=other&vk_ts=1703702141&vk_user_id=241538483&sign=yGI4eJ57taEj8JADTMgwzuZnD2ArbU_hcI7rIBFZRSY';
 
-    const data = await authSignIn({ launchUrl });
-    const token = data.token;
+    const authData = await authSignIn({ launchUrl });
+    const token = authData.token;
 
     const users = await datingGetRecommendedUsersSimple({ token });
-
     const recommendationUsers = users.users;
 
-    insertOrUpdateUsers(recommendationUsers);
+    await insertOrUpdateUsers(recommendationUsers);
 
-    console.log('recommendationUsers', recommendationUsers);
+    const likes = await datingGetLikeToYouUsers({ token });
+    const usersWhoLikedMe = likes.users;
+
+    await findUsersByPreviewUrl(usersWhoLikedMe);
+    // console.log('likes', likes);
+    // console.log('likes', likes.length);
+    // console.log('recommendationUsers', recommendationUsers);
   } catch (e) {
     console.log('ERR:', e);
   }
@@ -76,7 +81,20 @@ async function insertOrUpdateUsers(users) {
     console.log('Users inserted or updated:', result);
   } catch (error) {
     console.error('Error inserting or updating users:', error.message);
-  } finally {
-    mongoose.connection.close();
+  }
+}
+
+async function findUsersByPreviewUrl(likes) {
+  try {
+    const previewUrls = likes.map((like) => like.preview_url);
+    console.log('previewUrls', previewUrls);
+
+    const matchingUsers = await UserModel.find({
+      preview_url: { $in: previewUrls },
+    });
+
+    console.log('Matching Users:', matchingUsers);
+  } catch (error) {
+    console.error('Error finding users by preview_url:', error.message);
   }
 }

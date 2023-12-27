@@ -30,6 +30,7 @@ export async function getLikes({ token, lovinaAgent, sessionKey }) {
 
   const result = await readStream(res);
   const parsed = JSON.parse(result);
+  // console.log('parsed', parsed);
   if (!res.ok) throw parsed;
   return parsed;
 }

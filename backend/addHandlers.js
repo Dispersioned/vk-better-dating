@@ -2,11 +2,11 @@ import { db } from './modules/db.js';
 import { serializeRecommendations } from './serializers/serializeRecommendations.js';
 import { createLovinaAgent } from './utils/createLovinaAgent.js';
 import { createSessionKey } from './utils/createSessionKey.js';
-import { authVkDating } from './vk-api/authVkDating.js';
-import { dislike } from './vk-api/dislike.js';
-import { getLikes } from './vk-api/getLikes.js';
-import { getRecommendations } from './vk-api/getRecommendations.js';
-import { like } from './vk-api/like.js';
+import { authVkDating } from './vk-api/old/authVkDating.js';
+import { dislike } from './vk-api/old/dislike.js';
+import { getLikes } from './vk-api/old/getLikes.js';
+import { getRecommendations } from './vk-api/old/getRecommendations.js';
+import { like } from './vk-api/old/like.js';
 
 export function addHandlers(app) {
   app.post('/auth-vk-dating', async (req, res) => {

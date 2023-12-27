@@ -1,29 +1,29 @@
 import { readStream } from '../../utils/readStream.js';
 
-export async function datingGetRecommendedUsersSimple(payload) {
-  const fd = new FormData();
-  fd.append('count', payload.count || 100);
-  fd.append('_token', payload.token);
-  fd.append('_agent', payload.agent || '');
-  fd.append('_session', payload.session || '');
-  fd.append('_v', '1.10');
-
+export async function datingGetRecommendations({ token, count, lovinaAgent, sessionKey }) {
   const res = await fetch('https://dating.vk-apps.ru/api/dating.getRecommendedUsersSimple', {
     headers: {
       accept: 'application/json, text/plain, */*',
       'accept-language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
       'cache-control': 'no-cache',
+      'content-type': 'application/json',
       pragma: 'no-cache',
-      'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
+      'sec-ch-ua': '"Chromium";v="116", "Not)A;Brand";v="24", "Google Chrome";v="116"',
       'sec-ch-ua-mobile': '?0',
       'sec-ch-ua-platform': '"Windows"',
       'sec-fetch-dest': 'empty',
       'sec-fetch-mode': 'cors',
       'sec-fetch-site': 'cross-site',
-      Referer: 'https://prod-app7058363-ce653371913c.pages-ac.vk-apps.com/',
+      'x-api-version': '1.7',
+      'x-auth-token': token,
+      'x-lovina-agent': lovinaAgent,
+      'x-session-key': sessionKey,
+      Referer: 'https://prod-app7058363-3c6312d9a263.pages-ac.vk-apps.com/',
       'Referrer-Policy': 'strict-origin-when-cross-origin',
     },
-    body: fd,
+    body: JSON.stringify({
+      count: count,
+    }),
     method: 'POST',
   });
 

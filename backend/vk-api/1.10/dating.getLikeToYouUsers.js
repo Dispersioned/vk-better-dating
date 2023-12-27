@@ -1,10 +1,5 @@
 import { readStream } from '../../utils/readStream.js';
 
-// datingGetLikeToYouUsers({
-//   token:
-//     'd0Y9Ex6Pi/M80a3mNf0IgpHxuLMjCzlPhbuvOL6y/GqnIztuGq+4rLgFyTOTVDDumBD+zZ26FLgDPxKVv8CHi0vr/TU1VzH/eooVsT4T0ttlL7po8SHguRcGC9gL4l8mimAMHQI2Z6aHwljLRzgQhaYyfs5s6pEO6ZcwQcJjbGU=',
-// });
-
 export async function datingGetLikeToYouUsers(payload) {
   const fd = new FormData();
   fd.append('count', payload.count || 1000);

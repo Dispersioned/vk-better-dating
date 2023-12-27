@@ -6,11 +6,7 @@ const storySchema = new Schema({
   medium_url: String,
   small_url: String,
   type: String,
-  url: String,
-  size: {
-    width: Number,
-    height: Number,
-  },
+  blur_url: String,
   media_index: String,
 });
 

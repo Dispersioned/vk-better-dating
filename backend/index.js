@@ -7,7 +7,9 @@ import { mongoose } from 'mongoose';
 import { UserModel } from './schema/user.js';
 import { authSignIn } from './vk-api/1.10/auth.signIn.js';
 import { datingGetLikeToYouUsers } from './vk-api/1.10/dating.getLikeToYouUsers.js';
-import { datingGetRecommendedUsersSimple } from './vk-api/1.10/dating.getRecommendedUsersSimple.js';
+import { datingGetRecommendations } from './vk-api/1.7/dating.getRecommendations.js';
+import { createLovinaAgent } from './utils/createLovinaAgent.js';
+import { createSessionKey } from './utils/createSessionKey.js';
 
 // async function start() {
 // await db.init();
@@ -46,20 +48,22 @@ async function start() {
       'vk_access_token_settings=&vk_app_id=7058363&vk_are_notifications_enabled=0&vk_experiment=eyI2NjQ1IjowfQ&vk_is_app_user=1&vk_is_favorite=0&vk_language=ru&vk_platform=desktop_web&vk_ref=other&vk_ts=1703702141&vk_user_id=241538483&sign=yGI4eJ57taEj8JADTMgwzuZnD2ArbU_hcI7rIBFZRSY';
 
     const authData = await authSignIn({ launchUrl });
+    console.log('authData', authData);
     const token = authData.token;
+    const VKID = authData.vk_id;
+    const lovinaAgent = createLovinaAgent(VKID);
+    const sessionKey = createSessionKey(VKID);
 
-    const users = await datingGetRecommendedUsersSimple({ token });
+    const users = await datingGetRecommendations({ count: 100, token, lovinaAgent, sessionKey });
     const recommendationUsers = users.users;
 
     await insertOrUpdateUsers(recommendationUsers);
 
-    const likes = await datingGetLikeToYouUsers({ token });
+    const likes = await datingGetLikeToYouUsers({ count: 200, token, lovinaAgent, sessionKey });
     const usersWhoLikedMe = likes.users;
 
-    await findUsersByPreviewUrl(usersWhoLikedMe);
-    // console.log('likes', likes);
-    // console.log('likes', likes.length);
-    // console.log('recommendationUsers', recommendationUsers);
+    const matchedUsers = await findUsersByPreviewUrl(usersWhoLikedMe);
+    // console.log('matchedUsers', matchedUsers);
   } catch (e) {
     console.log('ERR:', e);
   }
@@ -87,13 +91,16 @@ async function insertOrUpdateUsers(users) {
 async function findUsersByPreviewUrl(likes) {
   try {
     const previewUrls = likes.map((like) => like.preview_url);
-    console.log('previewUrls', previewUrls);
 
     const matchingUsers = await UserModel.find({
-      preview_url: { $in: previewUrls },
+      stories: {
+        $elemMatch: {
+          blur_url: { $in: previewUrls },
+        },
+      },
     });
 
-    console.log('Matching Users:', matchingUsers);
+    return matchingUsers;
   } catch (error) {
     console.error('Error finding users by preview_url:', error.message);
   }

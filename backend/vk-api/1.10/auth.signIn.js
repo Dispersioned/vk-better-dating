@@ -1,10 +1,5 @@
 import { readStream } from '../../utils/readStream.js';
 
-// authSignIn({
-//   launchUrl:
-//     'vk_access_token_settings=&vk_app_id=7058363&vk_are_notifications_enabled=0&vk_experiment=eyI2NjQ1IjowfQ&vk_is_app_user=1&vk_is_favorite=0&vk_language=ru&vk_platform=desktop_web&vk_ref=other&vk_ts=1703699691&vk_user_id=241538483&sign=LoR2lCJJovVHNTlXdMivXUZ3A6AROf1CiWYYIWvW-Zg',
-// });
-
 export async function authSignIn(payload) {
   const fd = new FormData();
   fd.append('launch_url', '?' + payload.launchUrl);

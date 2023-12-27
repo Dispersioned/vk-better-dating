@@ -1,7 +1,7 @@
-import { readStream } from '../utils/readStream.js';
+import { readStream } from '../../utils/readStream.js';
 
-export async function getRecommendations({ token, count, lovinaAgent, sessionKey }) {
-  const res = await fetch('https://dating.vk-apps.ru/api/dating.getRecommendedUsersSimple', {
+export async function getLikes({ token, lovinaAgent, sessionKey }) {
+  const res = await fetch('https://dating.vk-apps.ru/api/dating.getLikeToYouUsers', {
     headers: {
       accept: 'application/json, text/plain, */*',
       'accept-language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
@@ -18,11 +18,12 @@ export async function getRecommendations({ token, count, lovinaAgent, sessionKey
       'x-auth-token': token,
       'x-lovina-agent': lovinaAgent,
       'x-session-key': sessionKey,
-      Referer: 'https://prod-app7058363-3c6312d9a263.pages-ac.vk-apps.com/',
+      Referer: 'https://prod-app7058363-58b56b6046cc.pages-ac.vk-apps.com/',
       'Referrer-Policy': 'strict-origin-when-cross-origin',
     },
     body: JSON.stringify({
-      count: count,
+      count: 50,
+      skip_ids: [],
     }),
     method: 'POST',
   });

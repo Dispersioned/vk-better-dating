@@ -1,7 +1,7 @@
-import { readStream } from '../utils/readStream.js';
+import { readStream } from '../../utils/readStream.js';
 
-export async function authVkDating({ authParams, lovinaAgent, sessionKey }) {
-  const res = await fetch('https://dating.vk-apps.ru/api/auth.signIn', {
+export async function getRecommendations({ token, count, lovinaAgent, sessionKey }) {
+  const res = await fetch('https://dating.vk-apps.ru/api/dating.getRecommendedUsersSimple', {
     headers: {
       accept: 'application/json, text/plain, */*',
       'accept-language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
@@ -15,17 +15,16 @@ export async function authVkDating({ authParams, lovinaAgent, sessionKey }) {
       'sec-fetch-mode': 'cors',
       'sec-fetch-site': 'cross-site',
       'x-api-version': '1.7',
+      'x-auth-token': token,
       'x-lovina-agent': lovinaAgent,
       'x-session-key': sessionKey,
-      Referrer: 'https://prod-app7058363-8039c5d351e4.pages-ac.vk-apps.com/',
+      Referer: 'https://prod-app7058363-3c6312d9a263.pages-ac.vk-apps.com/',
       'Referrer-Policy': 'strict-origin-when-cross-origin',
     },
     body: JSON.stringify({
-      launch_url: `?${authParams}`,
+      count: count,
     }),
     method: 'POST',
-    mode: 'cors',
-    credentials: 'omit',
   });
 
   const result = await readStream(res);

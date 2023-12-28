@@ -1,7 +1,7 @@
-import { readStream } from '../utils/readStream.js';
+import { readStream } from '../../utils/readStream.js';
 
-export async function dislike({ token, recipientId, lovinaAgent, sessionKey }) {
-  const res = await fetch('https://dating.vk-apps.ru/api/dating.dislike', {
+export async function datingGetRecommendations({ token, count, lovinaAgent, sessionKey }) {
+  const res = await fetch('https://dating.vk-apps.ru/api/dating.getRecommendedUsersSimple', {
     headers: {
       accept: 'application/json, text/plain, */*',
       'accept-language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
@@ -18,13 +18,11 @@ export async function dislike({ token, recipientId, lovinaAgent, sessionKey }) {
       'x-auth-token': token,
       'x-lovina-agent': lovinaAgent,
       'x-session-key': sessionKey,
-      Referer: 'https://prod-app7058363-58b56b6046cc.pages-ac.vk-apps.com/',
+      Referer: 'https://prod-app7058363-3c6312d9a263.pages-ac.vk-apps.com/',
       'Referrer-Policy': 'strict-origin-when-cross-origin',
     },
     body: JSON.stringify({
-      user_id: recipientId,
-      // todo возможно её стоит генерировать
-      meta: 'g6pTdG9yeUluZGV4oKtTdG9yeVNjb3Jlc5CmU291cmNlr3JlY29tbWVuZGF0aW9ucw==',
+      count: count,
     }),
     method: 'POST',
   });

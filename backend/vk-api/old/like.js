@@ -1,7 +1,7 @@
-import { readStream } from '../utils/readStream.js';
+import { readStream } from '../../utils/readStream.js';
 
-export async function getLikes({ token, lovinaAgent, sessionKey }) {
-  const res = await fetch('https://dating.vk-apps.ru/api/dating.getLikeToYouUsers', {
+export async function like({ token, recipientId, lovinaAgent, sessionKey }) {
+  const res = await fetch('https://dating.vk-apps.ru/api/dating.like', {
     headers: {
       accept: 'application/json, text/plain, */*',
       'accept-language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
@@ -22,8 +22,9 @@ export async function getLikes({ token, lovinaAgent, sessionKey }) {
       'Referrer-Policy': 'strict-origin-when-cross-origin',
     },
     body: JSON.stringify({
-      count: 50,
-      skip_ids: [],
+      user_id: recipientId,
+      // todo возможно её стоит генерировать
+      meta: 'g6pTdG9yeUluZGV4oKtTdG9yeVNjb3Jlc5CmU291cmNlr3JlY29tbWVuZGF0aW9ucw==',
     }),
     method: 'POST',
   });

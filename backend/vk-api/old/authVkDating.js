@@ -1,7 +1,7 @@
-import { readStream } from '../utils/readStream.js';
+import { readStream } from '../../utils/readStream.js';
 
-export async function like({ token, recipientId, lovinaAgent, sessionKey }) {
-  const res = await fetch('https://dating.vk-apps.ru/api/dating.like', {
+export async function authVkDating({ authParams, lovinaAgent, sessionKey }) {
+  const res = await fetch('https://dating.vk-apps.ru/api/auth.signIn', {
     headers: {
       accept: 'application/json, text/plain, */*',
       'accept-language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
@@ -15,18 +15,17 @@ export async function like({ token, recipientId, lovinaAgent, sessionKey }) {
       'sec-fetch-mode': 'cors',
       'sec-fetch-site': 'cross-site',
       'x-api-version': '1.7',
-      'x-auth-token': token,
       'x-lovina-agent': lovinaAgent,
       'x-session-key': sessionKey,
-      Referer: 'https://prod-app7058363-58b56b6046cc.pages-ac.vk-apps.com/',
+      Referrer: 'https://prod-app7058363-8039c5d351e4.pages-ac.vk-apps.com/',
       'Referrer-Policy': 'strict-origin-when-cross-origin',
     },
     body: JSON.stringify({
-      user_id: recipientId,
-      // todo возможно её стоит генерировать
-      meta: 'g6pTdG9yeUluZGV4oKtTdG9yeVNjb3Jlc5CmU291cmNlr3JlY29tbWVuZGF0aW9ucw==',
+      launch_url: `?${authParams}`,
     }),
     method: 'POST',
+    mode: 'cors',
+    credentials: 'omit',
   });
 
   const result = await readStream(res);

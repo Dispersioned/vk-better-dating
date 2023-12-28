@@ -8,7 +8,7 @@ import styles from './styles.module.scss';
 export function NewUserWelcome() {
   const [isAgreeWithRules, setIsAgreeWithRules] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const setViewed = useWelcomeStore((state) => state.setViewed);
+  const setViewed = useWelcomeStore((state) => state.setIsPolicyAgreed);
 
   return (
     <>

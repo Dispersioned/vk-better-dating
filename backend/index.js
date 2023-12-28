@@ -101,6 +101,7 @@ async function fetchUsersAndLikes({ token, VKID }) {
 
     const likesMeta = await findUsersByPreviewUrl(usersWhoLikedMe);
 
+    console.log('likesMeta', likesMeta);
     return {
       feed: users,
       likes: likesMeta,

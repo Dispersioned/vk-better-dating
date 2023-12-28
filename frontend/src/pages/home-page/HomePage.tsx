@@ -3,31 +3,24 @@ import { useQuery } from '@tanstack/react-query';
 import { useAuthStore } from 'app/store/auth.store';
 import { Dates } from 'components/Dates';
 import { BaseLayout } from 'components/base/base-layout';
-import { getDates, getLikes } from 'shared/api';
+import { getRecommendations } from 'shared/api';
 
 export function HomePage() {
   const { authData } = useAuthStore();
 
   if (!authData) return null;
 
-  const vktoken = authData.token;
-  const userId = authData.user.vk_id;
+  const token = authData.token;
+  const VKID = authData.user.vk_id;
 
-  const { data: dates, isLoading: isLoadingDates } = useQuery({
-    queryKey: ['dates'],
+  const { data, isLoading } = useQuery({
+    queryKey: ['recommendations'],
     queryFn: () => {
-      return getDates({ vktoken, userId });
+      return getRecommendations({ token, VKID });
     },
   });
 
-  const { data: profile, isLoading: isLoadingProfile } = useQuery({
-    queryKey: ['profile'],
-    queryFn: () => {
-      return getLikes({ vktoken, userId });
-    },
-  });
-
-  if (isLoadingDates || isLoadingProfile) {
+  if (isLoading) {
     return (
       <BaseLayout>
         <Typography variant="h2">Загрузка...</Typography>;
@@ -35,17 +28,19 @@ export function HomePage() {
     );
   }
 
-  if (!dates || !profile) {
+  if (!data) {
     return (
       <BaseLayout>
-        <Typography variant="h2">Упс, ошибка</Typography>;
+        <Typography variant="h2">
+          Произошла ошибка. Скорее всего что-то не так с автором. Попробуйте позже или свяжитесь с разработчиком
+        </Typography>
       </BaseLayout>
     );
   }
 
   return (
     <BaseLayout>
-      <Dates />
+      <Dates feed={data.feed} likes={data.likes} />
     </BaseLayout>
   );
 }

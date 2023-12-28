@@ -67,14 +67,14 @@ async function addHandlers(app) {
     }
   });
   app.post('/get-recommendations', async (req, res) => {
-    const { vktoken, count, userId } = req.body;
+    const { token, VKID } = req.body;
     try {
-      const { users, likes } = fetchUsersAndLikes({
-        token: vktoken,
-        VKID: userId,
+      const { feed, likes } = await fetchUsersAndLikes({
+        token,
+        VKID,
       });
 
-      return res.json({ users, likes });
+      return res.json({ feed, likes });
     } catch (e) {
       return res.status(404).json(e);
     }
@@ -102,7 +102,7 @@ async function fetchUsersAndLikes({ token, VKID }) {
     const likesMeta = await findUsersByPreviewUrl(usersWhoLikedMe);
 
     return {
-      users,
+      feed: users,
       likes: likesMeta,
     };
   } catch (e) {
@@ -147,9 +147,8 @@ async function findUsersByPreviewUrl(likes) {
         likeUser: like,
         matchedUser: matchedUsers[0] || null,
       });
-
-      return likesMeta;
     }
+    return likesMeta;
   } catch (error) {
     console.error('Error finding users by preview_url:', error.message);
   }

@@ -2,18 +2,18 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 type WelcomeStore = {
-  isViewed: boolean;
-  setViewed: (isViewed: boolean) => void;
+  isPolicyAgreed: boolean;
+  setIsPolicyAgreed: (isViewed: boolean) => void;
 };
 
 export const useWelcomeStore = create<WelcomeStore>()(
   persist(
     (set) => ({
-      isViewed: false,
-      setViewed: (isViewed) => set((state) => ({ isViewed })),
+      isPolicyAgreed: false,
+      setIsPolicyAgreed: (isPolicyAgreed) => set((state) => ({ isPolicyAgreed })),
     }),
     {
-      name: 'viewed',
+      name: 'policy-agreed',
       storage: createJSONStorage(() => localStorage),
     }
   )

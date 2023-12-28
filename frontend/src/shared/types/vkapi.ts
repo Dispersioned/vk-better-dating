@@ -1,7 +1,6 @@
-// possibly null?
 export type IUserSex = 'female' | 'male';
 
-export type IUser = {
+export type ILikeUser = {
   name: string;
   sex: IUserSex;
   is_online: boolean;
@@ -16,8 +15,8 @@ export type IProfile = {
   new_like_to_you_count: number;
   server_time: string;
   users: Array<{
-    userdb?: IRecommendationUserInfo;
-    user: IUser;
+    // userdb?: IRecommendationUserInfo;
+    user: ILikeUser;
   }>;
 };
 
@@ -83,8 +82,7 @@ export type IDateUserExtra = {
   meta: string;
 };
 
-export type IDateUser = {
-  // mapped id of vk.dates microservice
+export type IFeedUser = {
   id: number;
   name: string;
   sex: IUserSex;
@@ -102,20 +100,20 @@ export type IDateUser = {
   zodiac_sign_id: IZodiac;
 };
 
-export type IRecommendationUserInfo = {
-  //* same as user.id
-  id: number;
-  user: IDateUser;
-  isLiked: boolean;
-  isSkipped: boolean;
-};
+// export type IRecommendationUserInfo = {
+//   //* same as user.id
+//   id: number;
+//   user: IDateUser;
+//   isLiked: boolean;
+//   isSkipped: boolean;
+// };
 
-export type IDates = {
+export type IFeed = {
   // 100, обнуляется каждый день
   // тратится при лайках
   remaining: number;
   server_time: string;
-  users: IRecommendationUserInfo[];
+  users: IFeedUser[];
 };
 
 export type IVkAuth = {
@@ -181,13 +179,7 @@ export type IVkAuth = {
   };
 };
 
-export type IMatchInfo = {
-  user: IRecommendationUserInfo;
-  matchedByUrl: string;
-};
-
-export type ILikeOrDislikeResponse = {
-  userId: number;
-  isMatchMissed: boolean;
-  date: number;
+export type ILike = {
+  likeUser: ILikeUser;
+  matchedUser: IFeedUser;
 };

@@ -2,33 +2,25 @@ import { Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { useAuthStore } from 'app/store/auth.store';
 import { BaseLayout } from 'components/base/base-layout';
-import { Likes } from 'components/likes';
-import { getDates, getLikes } from 'shared/api';
+import { LikesList } from 'components/likes-list';
+import { getRecommendations } from 'shared/api';
 
 export function MyLikesPage() {
   // TODO: дублирующаяся логика между страницами, вынести в хук загрузки данных
   const { authData } = useAuthStore();
 
   if (!authData) return null;
+  const token = authData.token;
+  const VKID = authData.user.vk_id;
 
-  const vktoken = authData.token;
-  const userId = authData.user.vk_id;
-
-  const { data: dates, isLoading: isLoadingDates } = useQuery({
-    queryKey: ['dates'],
+  const { data, isLoading } = useQuery({
+    queryKey: ['recommendations'],
     queryFn: () => {
-      return getDates({ vktoken, userId });
+      return getRecommendations({ token, VKID });
     },
   });
 
-  const { data: profile, isLoading: isLoadingProfile } = useQuery({
-    queryKey: ['profile'],
-    queryFn: () => {
-      return getLikes({ vktoken, userId });
-    },
-  });
-
-  if (isLoadingDates || isLoadingProfile) {
+  if (isLoading) {
     return (
       <BaseLayout>
         <Typography variant="h2">Загрузка...</Typography>;
@@ -36,17 +28,19 @@ export function MyLikesPage() {
     );
   }
 
-  if (!dates || !profile) {
+  if (!data) {
     return (
       <BaseLayout>
-        <Typography variant="h2">Упс, ошибка</Typography>;
+        <Typography variant="h2">
+          Произошла ошибка. Скорее всего что-то не так с автором. Попробуйте позже или свяжитесь с разработчиком
+        </Typography>
       </BaseLayout>
     );
   }
 
   return (
     <BaseLayout>
-      <Likes />
+      <LikesList likes={data.likes} />
     </BaseLayout>
   );
 }

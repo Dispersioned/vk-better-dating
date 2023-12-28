@@ -8,14 +8,14 @@ import { NewUserWelcome } from './NewUserWelcome';
 import styles from './styles.module.scss';
 
 export function AuthPage() {
-  const isViewed = useWelcomeStore((state) => state.isViewed);
+  const isPolicyAgreed = useWelcomeStore((state) => state.isPolicyAgreed);
 
   return (
     <BaseLayout size="lg">
       <div className={styles.layout}>
         <Typography variant="h2">VK Better Dating </Typography>
         <Typography>Кастомный клиент для ВК знакомств c бэктрекингом, превью мэтчей и фильтрами</Typography>
-        {isViewed ? (
+        {isPolicyAgreed ? (
           <div className={styles.instructions}>
             <Typography variant="h4">Как авторизоваться?</Typography>
             <div>

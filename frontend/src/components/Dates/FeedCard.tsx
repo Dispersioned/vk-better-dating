@@ -7,18 +7,17 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { dislike, like } from 'shared/api';
 import { DATE_TARGET_STATE, FAMILY_STATE, INTERESTS_STATE, SPORT_STATE, ZODIAC_SIGN_STATE } from 'shared/config/vk';
 import { toastService } from 'shared/services/toast.service';
-import { IDateUser } from 'shared/types';
+import { IFeedUser } from 'shared/types';
 import { getAxiosErrorMessage } from 'shared/utils/getAxiosErrorMessage';
 import { renderFromEnum } from 'shared/utils/renderFromEnum';
 
 import styles from './styles.module.scss';
 
 type FeedCardProps = {
-  user: IDateUser;
+  user: IFeedUser;
   isMatch: boolean;
 };
 
-// TODO: вынести в отдельный компонент, много где используется
 export function FeedCard({ user, isMatch }: FeedCardProps) {
   const { authData } = useAuthStore();
   const sortedInterests = [...user.form.interests];

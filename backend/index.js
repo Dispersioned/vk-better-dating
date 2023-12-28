@@ -1,6 +1,6 @@
-// import express from 'express';
+import express from 'express';
 // import { addHandlers } from './addHandlers.js';
-// import { port } from './config/consts.js';
+import { port } from './config/consts.js';
 // import { db } from './modules/db.js';
 
 import { mongoose } from 'mongoose';
@@ -29,28 +29,65 @@ import { createSessionKey } from './utils/createSessionKey.js';
 
 // start();
 
-const DB_STARTUP_OPTIONS = {};
-
-async function connectdb() {
+async function bootstrap() {
   try {
-    await mongoose.connect('mongodb://127.0.0.1:27017/test', DB_STARTUP_OPTIONS);
-    start();
+    await mongoose.connect('mongodb://127.0.0.1:27017/test');
+
+    const app = express();
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
+
+    app.use(function (req, res, next) {
+      res.header('Access-Control-Allow-Origin', '*');
+      res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+      next();
+    });
+
+    addHandlers(app);
+
+    app.listen(port, () => {
+      console.log(`Server is listening at http://localhost:${port}`);
+    });
   } catch (err) {
     console.log('error: ' + err);
   }
 }
 
-connectdb();
+bootstrap();
 
-async function start() {
+async function addHandlers(app) {
+  app.post('/auth-vk-dating', async (req, res) => {
+    const { authParams } = req.body;
+    try {
+      const authData = await fetchAuthData(authParams);
+
+      return res.json(authData);
+    } catch (e) {
+      return res.status(404).json(e);
+    }
+  });
+  app.post('/get-recommendations', async (req, res) => {
+    const { vktoken, count, userId } = req.body;
+    try {
+      const { users, likes } = fetchUsersAndLikes({
+        token: vktoken,
+        VKID: userId,
+      });
+
+      return res.json({ users, likes });
+    } catch (e) {
+      return res.status(404).json(e);
+    }
+  });
+}
+
+async function fetchAuthData(launchUrl) {
+  const authData = await authSignIn({ launchUrl });
+  return authData;
+}
+
+async function fetchUsersAndLikes({ token, VKID }) {
   try {
-    const launchUrl =
-      'vk_access_token_settings=&vk_app_id=7058363&vk_are_notifications_enabled=0&vk_experiment=eyI2NjQ1IjowfQ&vk_is_app_user=1&vk_is_favorite=0&vk_language=ru&vk_platform=desktop_web&vk_ref=other&vk_ts=1703702141&vk_user_id=241538483&sign=yGI4eJ57taEj8JADTMgwzuZnD2ArbU_hcI7rIBFZRSY';
-
-    const authData = await authSignIn({ launchUrl });
-    console.log('authData', authData);
-    const token = authData.token;
-    const VKID = authData.vk_id;
     const lovinaAgent = createLovinaAgent(VKID);
     const sessionKey = createSessionKey(VKID);
 
@@ -62,8 +99,12 @@ async function start() {
     const likes = await datingGetLikeToYouUsers({ count: 200, token, lovinaAgent, sessionKey });
     const usersWhoLikedMe = likes.users;
 
-    const matchedUsers = await findUsersByPreviewUrl(usersWhoLikedMe);
-    // console.log('matchedUsers', matchedUsers);
+    const likesMeta = await findUsersByPreviewUrl(usersWhoLikedMe);
+
+    return {
+      users,
+      likes: likesMeta,
+    };
   } catch (e) {
     console.log('ERR:', e);
   }
@@ -90,17 +131,25 @@ async function insertOrUpdateUsers(users) {
 
 async function findUsersByPreviewUrl(likes) {
   try {
-    const previewUrls = likes.map((like) => like.preview_url);
+    const likesMeta = [];
 
-    const matchingUsers = await UserModel.find({
-      stories: {
-        $elemMatch: {
-          blur_url: { $in: previewUrls },
+    for (const like of likes) {
+      const previewUrl = like.preview_url;
+      const matchedUsers = await UserModel.find({
+        stories: {
+          $elemMatch: {
+            blur_url: previewUrl,
+          },
         },
-      },
-    });
+      });
 
-    return matchingUsers;
+      likesMeta.push({
+        likeUser: like,
+        matchedUser: matchedUsers[0] || null,
+      });
+
+      return likesMeta;
+    }
   } catch (error) {
     console.error('Error finding users by preview_url:', error.message);
   }

@@ -39,9 +39,9 @@ export async function getDates({ vktoken, userId }: Payload) {
   }
 }
 
-export async function login(params: string) {
+export async function login(launchUrl: string) {
   const res = await api.post<IVkAuth>('auth-vk-dating', {
-    authParams: params,
+    launchUrl,
   });
   return res.data;
 }

@@ -31,14 +31,9 @@ export function Form() {
 
   return (
     <div className={styles.form}>
-      <TextField
-        value={params}
-        onChange={(e) => setParams(e.target.value)}
-        size="small"
-        label="Введи в меня свои параметры, семпай"
-      />
+      <TextField value={params} onChange={(e) => setParams(e.target.value)} size="small" label="Ввод токена" />
       <Button color="success" disabled={!canSubmit} onClick={onSubmit}>
-        Поехали
+        Авторизация
       </Button>
     </div>
   );

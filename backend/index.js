@@ -57,9 +57,9 @@ bootstrap();
 
 async function addHandlers(app) {
   app.post('/auth-vk-dating', async (req, res) => {
-    const { authParams } = req.body;
+    const { launchUrl } = req.body;
     try {
-      const authData = await fetchAuthData(authParams);
+      const authData = await fetchAuthData(launchUrl);
 
       return res.json(authData);
     } catch (e) {

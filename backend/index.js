@@ -1,8 +1,5 @@
 import express from 'express';
-// import { addHandlers } from './addHandlers.js';
 import { port } from './config/consts.js';
-// import { db } from './modules/db.js';
-
 import { mongoose } from 'mongoose';
 import { UserModel } from './schema/user.js';
 import { authSignIn } from './vk-api/1.10/auth.signIn.js';
@@ -10,24 +7,8 @@ import { datingGetLikeToYouUsers } from './vk-api/1.10/dating.getLikeToYouUsers.
 import { datingGetRecommendations } from './vk-api/1.7/dating.getRecommendations.js';
 import { createLovinaAgent } from './utils/createLovinaAgent.js';
 import { createSessionKey } from './utils/createSessionKey.js';
-
-// async function start() {
-// await db.init();
-// const app = express();
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-// app.use(function (req, res, next) {
-//   res.header('Access-Control-Allow-Origin', '*');
-//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-//   next();
-// });
-// addHandlers(app);
-// app.listen(port, () => {
-//   console.log(`Server is listening at http://localhost:${port}`);
-// });
-// }
-
-// start();
+import { like } from './vk-api/old/like.js';
+import { dislike } from './vk-api/old/dislike.js';
 
 async function bootstrap() {
   try {
@@ -76,6 +57,40 @@ async function addHandlers(app) {
 
       return res.json({ feed, likes });
     } catch (e) {
+      return res.status(404).json(e);
+    }
+  });
+
+  app.post('/like', async (req, res) => {
+    const { vktoken, userId, recipientId } = req.body;
+    try {
+      const result = await like({
+        token: vktoken,
+        recipientId,
+        sessionKey: createSessionKey(userId),
+        lovinaAgent: createLovinaAgent(userId),
+      });
+
+      return res.json(result);
+    } catch (e) {
+      console.log(e);
+      return res.status(404).json(e);
+    }
+  });
+
+  app.post('/dislike', async (req, res) => {
+    const { vktoken, userId, recipientId } = req.body;
+    try {
+      const result = await dislike({
+        token: vktoken,
+        recipientId,
+        sessionKey: createSessionKey(userId),
+        lovinaAgent: createLovinaAgent(userId),
+      });
+
+      return res.json(result);
+    } catch (e) {
+      console.log(e);
       return res.status(404).json(e);
     }
   });

@@ -3,12 +3,12 @@
   "version": "alpha-0.1",
   "description": "Кастомный клиент для вк знакомств",
   "scripts": {
-    "start": "concurrently \"yarn start-client\" \"yarn start-server\"",
-    "start-client": "cd client && yarn start",
-    "start-server": "cd server && yarn dev",
-    "install-deps": "concurrently \"yarn install-deps-client\" \"yarn install-deps-server\"",
-    "install-deps-client": "cd client && yarn",
-    "install-deps-server": "cd server && yarn"
+    "start": "concurrently \"yarn start-frontend\" \"yarn start-backend\"",
+    "start-frontend": "cd frontend && yarn start",
+    "start-backend": "cd backend && yarn dev",
+    "install-deps": "concurrently \"yarn install-deps-frontend\" \"yarn install-deps-backend\"",
+    "install-deps-frontend": "cd frontend && yarn",
+    "install-deps-backend": "cd backend && yarn"
   },
   "keywords": [],
   "author": "",

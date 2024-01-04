@@ -11,14 +11,14 @@ import { IFeedUser } from 'shared/types';
 import { getAxiosErrorMessage } from 'shared/utils/getAxiosErrorMessage';
 import { renderFromEnum } from 'shared/utils/renderFromEnum';
 
-import styles from './styles.module.scss';
+import styles from './UserCard.module.scss';
 
-type FeedCardProps = {
+type UserCardProps = {
   user: IFeedUser;
   isMatch: boolean;
 };
 
-export function FeedCard({ user, isMatch }: FeedCardProps) {
+export function UserCard({ user, isMatch }: UserCardProps) {
   const { authData } = useAuthStore();
   const sortedInterests = [...user.form.interests];
   sortedInterests.sort();
@@ -57,7 +57,7 @@ export function FeedCard({ user, isMatch }: FeedCardProps) {
 
   return (
     <div className={styles.user} data-recommendationid={user.id}>
-      <Typography color="gray">ID: {user.id}</Typography>
+      {/* <Typography color="gray">ID: {user.id}</Typography> */}
       <div className={styles.header}>
         {isMatch && <Typography className={styles.liked_me}>Лайкнул{user.sex === 'female' && 'а'} тебя</Typography>}
         {user.is_deleted && <Typography color="error">Удаленный аккаунт</Typography>}

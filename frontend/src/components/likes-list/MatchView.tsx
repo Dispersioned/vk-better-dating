@@ -1,6 +1,6 @@
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
-import { FeedCard } from 'components/Dates/FeedCard';
+import { UserCard } from 'components/user-card';
 import { useState } from 'react';
 import { IFeedUser } from 'shared/types';
 
@@ -18,7 +18,7 @@ export function MatchView({ match }: MatchViewProps) {
       <Dialog onClose={() => setOpen(false)} open={open} maxWidth={false}>
         <DialogTitle>Анкета</DialogTitle>
         <DialogContent>
-          <FeedCard key={match.id} user={match} isMatch={true} />
+          <UserCard key={match.id} user={match} isMatch={true} />
         </DialogContent>
       </Dialog>
     </>

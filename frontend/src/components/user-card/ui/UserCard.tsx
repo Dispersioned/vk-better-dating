@@ -11,6 +11,7 @@ import { IFeedUser } from 'shared/types';
 import { getAxiosErrorMessage } from 'shared/utils/getAxiosErrorMessage';
 import { renderFromEnum } from 'shared/utils/renderFromEnum';
 
+import { Location } from './Location';
 import styles from './UserCard.module.scss';
 
 type UserCardProps = {
@@ -68,7 +69,7 @@ export function UserCard({ user, isMatch }: UserCardProps) {
           {user.name} {user.age}
         </Typography>
         <OnlineStatus online={user.is_online} lastOnline={user.last_active_at} />
-        <Typography>{user.extra.distance} метров от вас</Typography>
+        <Location distanceMeters={user.extra.distance} canBeHidden={user.is_premium_enabled} />
         <Typography>ID: {user.id}</Typography>
         <IconButton onClick={onLike}>
           <ThumbUpIcon color="success" className={styles.icon_button} />

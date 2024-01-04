@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 import { IFeed, ILike } from 'shared/types';
 
-import { FeedCard } from './FeedCard';
+import { UserCard } from '../user-card';
 import styles from './styles.module.scss';
 
 type DatesProps = {
@@ -19,7 +19,7 @@ export function Dates({ feed, likes }: DatesProps) {
       </Typography>
       <div className={styles.users}>
         {feed.users.map((feedUser) => (
-          <FeedCard key={feedUser.id} user={feedUser} isMatch={matchedUsersIds.includes(feedUser.id)} />
+          <UserCard key={feedUser.id} user={feedUser} isMatch={matchedUsersIds.includes(feedUser.id)} />
         ))}
       </div>
     </div>

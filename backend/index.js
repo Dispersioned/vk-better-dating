@@ -9,6 +9,7 @@ import { createLovinaAgent } from './utils/createLovinaAgent.js';
 import { createSessionKey } from './utils/createSessionKey.js';
 import { like } from './vk-api/old/like.js';
 import { dislike } from './vk-api/old/dislike.js';
+import { LikeModel } from './schema/like.js';
 
 async function bootstrap() {
   try {
@@ -101,6 +102,26 @@ async function fetchAuthData(launchUrl) {
   return authData;
 }
 
+async function saveLikesInfo(usersWhoLikedMe) {
+  try {
+    const withUniqueIds = usersWhoLikedMe.map((user) => ({ ...user, id: user.extra.hash }));
+
+    const bulkOps = withUniqueIds.map((likeUser) => ({
+      updateOne: {
+        filter: { id: likeUser.id }, // Assuming 'id' is a unique key
+        update: likeUser,
+        upsert: true,
+      },
+    }));
+
+    const result = await LikeModel.bulkWrite(bulkOps);
+    return result;
+  } catch (error) {
+    console.log('UNIQUE LIKE KEY ERROR', error);
+    throw error;
+  }
+}
+
 async function fetchUsersAndLikes({ token, VKID }) {
   try {
     const lovinaAgent = createLovinaAgent(VKID);
@@ -114,9 +135,10 @@ async function fetchUsersAndLikes({ token, VKID }) {
     const likes = await datingGetLikeToYouUsers({ count: 200, token, lovinaAgent, sessionKey });
     const usersWhoLikedMe = likes.users;
 
+    saveLikesInfo(usersWhoLikedMe);
     const likesMeta = await findUsersByPreviewUrl(usersWhoLikedMe);
 
-    console.log('likesMeta', likesMeta);
+    // console.log('likesMeta', likesMeta);
     return {
       feed: users,
       likes: likesMeta,

@@ -136,15 +136,30 @@ async function fetchUsersAndLikes({ token, VKID }) {
     const usersWhoLikedMe = likes.users;
 
     saveLikesInfo(usersWhoLikedMe);
+    const actualLikesIDs = usersWhoLikedMe.map((likeUser) => likeUser.extra.hash);
+
+    const expiredLikesMeta = await getExpiredLikes(actualLikesIDs);
+    const expiredLikes = await findUsersByPreviewUrl(expiredLikesMeta);
+
     const likesMeta = await findUsersByPreviewUrl(usersWhoLikedMe);
 
-    // console.log('likesMeta', likesMeta);
     return {
       feed: users,
       likes: likesMeta,
+      expiredLikes,
     };
   } catch (e) {
     console.log('ERR:', e);
+  }
+}
+
+async function getExpiredLikes(idsToExclude) {
+  try {
+    const result = await LikeModel.find({ id: { $nin: idsToExclude } });
+    return result;
+  } catch (err) {
+    console.log('err', err);
+    throw err;
   }
 }
 

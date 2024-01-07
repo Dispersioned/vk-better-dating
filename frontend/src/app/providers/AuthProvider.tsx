@@ -13,7 +13,7 @@ type ThemeProviderProps = PropsWithChildren;
 
 export function AuthProvider({ children }: ThemeProviderProps) {
   const navigate = useNavigate();
-  const { setAuthData, isLoading, setIsLoading } = useAuthStore();
+  const { setAuthData, isLoading, setIsLoading, isInited, setIsInited } = useAuthStore();
   const { vkparams, setParams } = useTokenStore();
 
   // todo: сюда добавить локальный стейт isLoaded
@@ -44,11 +44,12 @@ export function AuthProvider({ children }: ThemeProviderProps) {
         }
       }
       setIsLoading(false);
+      setIsInited(true);
     }
     if (!isLoading) tryLogin();
   }, []);
 
-  if (isLoading)
+  if (isLoading || !isInited)
     return (
       <BaseLayout>
         <Typography variant="h2">Загрузка...</Typography>;

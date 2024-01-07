@@ -58,7 +58,6 @@ export function UserCard({ user, isMatch }: UserCardProps) {
 
   return (
     <div className={styles.user} data-recommendationid={user.id}>
-      {/* <Typography color="gray">ID: {user.id}</Typography> */}
       <div className={styles.header}>
         {isMatch && <Typography className={styles.liked_me}>Лайкнул{user.sex === 'female' && 'а'} тебя</Typography>}
         {user.is_deleted && <Typography color="error">Удаленный аккаунт</Typography>}

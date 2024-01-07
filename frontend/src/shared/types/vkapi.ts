@@ -15,7 +15,6 @@ export type IProfile = {
   new_like_to_you_count: number;
   server_time: string;
   users: Array<{
-    // userdb?: IRecommendationUserInfo;
     user: ILikeUser;
   }>;
 };

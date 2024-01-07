@@ -1,5 +1,6 @@
 import { Typography } from '@mui/material';
 import { BaseTooltip } from 'components/base/base-tooltip';
+import { ROUND_DISTANCE_PRECISION } from 'shared/config/consts';
 
 type LocationProps = {
   distanceMeters: number;
@@ -18,8 +19,7 @@ export function Location({ distanceMeters, canBeHidden }: LocationProps) {
     return <Typography>{distanceMeters} метров от вас</Typography>;
   }
 
-  const precision = 2;
-  const corrector = Math.pow(10, precision);
+  const corrector = Math.pow(10, ROUND_DISTANCE_PRECISION);
   const distanceKilometers = Math.round((distanceMeters / 1000) * corrector) / corrector;
 
   return (

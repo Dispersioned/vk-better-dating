@@ -16,6 +16,7 @@ export const DATE_TARGET_STATE = {
   serious_date: 'Серьёзные отношения',
   conversation: 'Дружеское общение',
   new_experience: 'Новый опыт',
+  free_date: 'Свободные отношения',
 };
 
 export const ZODIAC_SIGN_STATE = {

@@ -22,6 +22,7 @@ type GetRecommendationPayload = {
 type GetRecommendationResponse = {
   feed: IFeed;
   likes: ILike[];
+  expiredLikes: ILike[];
 };
 
 export async function getRecommendations({ token, VKID }: GetRecommendationPayload) {

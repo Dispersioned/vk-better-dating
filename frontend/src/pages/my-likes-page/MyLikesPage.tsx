@@ -40,7 +40,7 @@ export function MyLikesPage() {
 
   return (
     <BaseLayout>
-      <LikesList likes={data.likes} />
+      <LikesList likes={data.likes} expiredLikes={data.expiredLikes} />
     </BaseLayout>
   );
 }

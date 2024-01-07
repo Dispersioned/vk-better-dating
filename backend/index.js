@@ -51,12 +51,12 @@ async function addHandlers(app) {
   app.post('/get-recommendations', async (req, res) => {
     const { token, VKID } = req.body;
     try {
-      const { feed, likes } = await fetchUsersAndLikes({
+      const { feed, likes, expiredLikes } = await fetchUsersAndLikes({
         token,
         VKID,
       });
 
-      return res.json({ feed, likes });
+      return res.json({ feed, likes, expiredLikes });
     } catch (e) {
       return res.status(404).json(e);
     }

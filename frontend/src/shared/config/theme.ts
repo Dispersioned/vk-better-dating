@@ -7,7 +7,7 @@ export const theme = createTheme({
   typography: {
     allVariants: {
       color: '#fff',
-      fontFamily: "font-family: 'Fira Sans', 'Roboto', Helvetica, Arial, sans-serif",
+      fontFamily: "'Fira Sans', 'Roboto', Helvetica, Arial, sans-serif",
     },
     body1: {
       fontSize: 20,

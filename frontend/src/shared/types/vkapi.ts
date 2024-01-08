@@ -26,6 +26,8 @@ export type IInterests = 'detectives' | 'coffee' | 'music_lover' | string;
 export type ISports = 'keep_in_shape' | string;
 export type IDatingTarget = 'serious_date' | 'conversation' | 'new_experience' | undefined;
 export type IFamily = 'free' | string;
+export type ISmoking = 'vape' | string;
+export type IAlcohol = 'rarely' | string;
 
 type IStoryBase = {
   large_url: string;
@@ -59,13 +61,15 @@ export type IDateUserForm = {
   // в сантиметрах
   height: number;
   sport: ISports;
+  alcohol: IAlcohol;
+  smoking: ISmoking;
   target: IDatingTarget;
   family: IFamily;
   interests: IInterests[];
-  // todo
-  labels: any[];
-  // todo
-  artists: any[];
+  // имена исполнителей
+  labels: string[];
+  // id исполнителей из labels + автоматически распаршенные исполнители (которые предлагает сам вк, а пользователь выбирает)
+  artists: string[];
 };
 
 export type IDateUserFormExtension = {

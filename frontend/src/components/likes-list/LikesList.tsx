@@ -25,7 +25,7 @@ export function LikesList({ likes, expiredLikes }: LikesListProps) {
         ))}
       </div>
       <Typography variant="h4" align="center">
-        Упущенные лайки:
+        Упущенные/принятые лайки:
       </Typography>
       <div className={styles.users}>
         {expiredLikes.map((likeMeta) => (

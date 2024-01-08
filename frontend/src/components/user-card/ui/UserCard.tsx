@@ -6,10 +6,12 @@ import { OnlineStatus } from 'components/OnlineStatus';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { dislike, like } from 'shared/api';
 import {
+  ALCOHOL_STATE,
   DATE_TARGET_STATE,
   FAMILY_STATE,
   INTERESTS_STATE,
   KIDS_STATE,
+  SMOKING_STATE,
   SPORT_STATE,
   ZODIAC_SIGN_STATE,
 } from 'shared/config/vk';
@@ -147,9 +149,21 @@ export function UserCard({ user, isMatch }: UserCardProps) {
             </Typography>
             <Typography>
               <Typography color="#888" component="span">
-                Отношение к спорту:
+                Спорт:
               </Typography>{' '}
               {renderFromEnum(SPORT_STATE, user.form.sport)}
+            </Typography>
+            <Typography>
+              <Typography color="#888" component="span">
+                Курение:
+              </Typography>{' '}
+              {renderFromEnum(SMOKING_STATE, user.form.smoking)}
+            </Typography>
+            <Typography>
+              <Typography color="#888" component="span">
+                Алкоголь:
+              </Typography>{' '}
+              {renderFromEnum(ALCOHOL_STATE, user.form.alcohol)}
             </Typography>
           </div>
         </div>
@@ -157,10 +171,10 @@ export function UserCard({ user, isMatch }: UserCardProps) {
         <Typography color="#888">Фильмы: {user.form.movies}</Typography>
         <Typography color="#888">Книги: {user.form.books}</Typography>
         <Typography color="#888">Лейблы: {user.form.labels.join(', ')}</Typography>
-        <Typography color="#888">Исполнители (парс вк id): {user.form.artists.join(', ')}</Typography>
         <Typography color="#888">
           Исполнители (доп): {user.form_extension.artists.map((artist) => artist.name).join(', ')}
         </Typography>
+        <Typography color="#888">Исполнители (парс вк id): {user.form.artists.join(', ')}</Typography>
       </div>
       <div className={styles.images}>
         {user.stories.map((story) => (

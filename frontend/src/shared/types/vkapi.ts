@@ -20,6 +20,7 @@ export type IProfile = {
 };
 
 // todo
+export type IKids = 'yes' | 'no' | string;
 export type IZodiac = 'leo' | 'capricornus' | string;
 export type IInterests = 'detectives' | 'coffee' | 'music_lover' | string;
 export type ISports = 'keep_in_shape' | string;
@@ -54,6 +55,7 @@ export type IDateUserForm = {
   music: string;
   movies: string;
   books: string;
+  kids: IKids;
   // в сантиметрах
   height: number;
   sport: ISports;

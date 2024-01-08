@@ -5,7 +5,14 @@ import { useAuthStore } from 'app/store/auth.store';
 import { OnlineStatus } from 'components/OnlineStatus';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { dislike, like } from 'shared/api';
-import { DATE_TARGET_STATE, FAMILY_STATE, INTERESTS_STATE, SPORT_STATE, ZODIAC_SIGN_STATE } from 'shared/config/vk';
+import {
+  DATE_TARGET_STATE,
+  FAMILY_STATE,
+  INTERESTS_STATE,
+  KIDS_STATE,
+  SPORT_STATE,
+  ZODIAC_SIGN_STATE,
+} from 'shared/config/vk';
 import { toastService } from 'shared/services/toast.service';
 import { IFeedUser } from 'shared/types';
 import { getAxiosErrorMessage } from 'shared/utils/getAxiosErrorMessage';
@@ -91,6 +98,12 @@ export function UserCard({ user, isMatch }: UserCardProps) {
                 Семейное положение:
               </Typography>{' '}
               {renderFromEnum(FAMILY_STATE, user.form.family)}
+            </Typography>
+            <Typography>
+              <Typography color="#888" component="span">
+                Дети:
+              </Typography>{' '}
+              {renderFromEnum(KIDS_STATE, user.form.kids)}
             </Typography>
             <Typography>
               <Typography color="#888" component="span">

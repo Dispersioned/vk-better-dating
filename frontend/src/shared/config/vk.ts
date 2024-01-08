@@ -1,3 +1,9 @@
+export const KIDS_STATE = {
+  yes: 'есть',
+  no: 'нет',
+  childfree: 'чайлдфри',
+};
+
 export const FAMILY_STATE = {
   free: 'Свободна',
   all_complicated: 'Всё сложно',

@@ -1,12 +1,14 @@
 # VK Better Dating client
 
 ## Установка
-1. Установить nodejs 18 версии
-2. Открыть папку проекта в любом терминале
-3. Прописать `npm i -g yarn`
-4. Прописать `yarn`
-5. Прописать `yarn install-deps`
-6. Запустить проект командой `yarn start`
+1. Установить MongoDB https://www.mongodb.com/try/download/community
+2. Запустить MongoDB Compass и создать базу данных `test`
+3. Установить nodejs 18 версии (но 20 тоже пойдет) https://nodejs.org/en/download/
+4. Открыть папку проекта в любом терминале
+5. Прописать `npm i -g yarn`
+6. Прописать `yarn`
+7. Прописать `yarn install-deps`
+8. Запустить проект командой `yarn start`
 
 ## Todo
 1. фильтры, умные фильтры

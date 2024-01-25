@@ -1,3 +1,21 @@
+export const SMOKING_STATE = {
+  yes: 'курю',
+  vape: 'вейп',
+  not: 'не курю',
+};
+
+export const ALCOHOL_STATE = {
+  yes: 'пью',
+  rarely: 'иногда',
+  not: 'не пью',
+};
+
+export const KIDS_STATE = {
+  yes: 'есть',
+  no: 'нет',
+  childfree: 'чайлдфри',
+};
+
 export const FAMILY_STATE = {
   free: 'Свободна',
   all_complicated: 'Всё сложно',

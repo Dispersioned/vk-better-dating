@@ -1,5 +1,6 @@
 import { Checkbox, FormControlLabel, TextField, Typography } from '@mui/material';
 import { BaseLayout } from 'components/base/base-layout';
+import { GlobalFilters } from 'widgets/global-filters';
 
 import { SettingCheckbox } from './SettingCheckbox';
 import styles from './styles.module.scss';
@@ -11,7 +12,11 @@ export function SettingsPage() {
         <Typography variant="h4" align="center">
           Настройки
         </Typography>
-        <Typography>Ты всегда можешь посмотреть отфильтрованные анкеты в специальном разделе</Typography>
+        <Typography>
+          Важно понимать что лента отображает анкеты по 50 человек. Если 40 из них отпадают по фильтрам - тебе будет
+          доступно только 10 человек. И перезапрашивать ты их будешь в 50/10=5 раз чаще.
+        </Typography>
+        <GlobalFilters />
         <div className={styles.settings}>
           <SettingCheckbox name="Выключить астрологию" description="Скрывает знаки зодиака в описании анкеты" />
           <SettingCheckbox
@@ -51,6 +56,7 @@ export function SettingsPage() {
               <TextField variant="filled" disabled label="Максимальный, см" />
             </div>
           </div>
+          GLobal
         </div>
       </div>
     </BaseLayout>

@@ -1,7 +1,6 @@
 import { Checkbox, FormControlLabel, Typography } from '@mui/material';
 
 type SettingCheckboxProps = {
-  // settingKey: string;
   name: string;
   description: string;
 };

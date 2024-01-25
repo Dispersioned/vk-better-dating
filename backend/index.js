@@ -11,9 +11,11 @@ import { like } from './vk-api/old/like.js';
 import { dislike } from './vk-api/old/dislike.js';
 import { LikeModel } from './schema/like.js';
 
+const MONGODB_NAME = 'test';
+
 async function bootstrap() {
   try {
-    await mongoose.connect('mongodb://127.0.0.1:27017/test');
+    await mongoose.connect(`mongodb://127.0.0.1:27017/${MONGODB_NAME}`);
 
     const app = express();
     app.use(express.json());

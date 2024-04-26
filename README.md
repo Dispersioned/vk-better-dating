@@ -2,7 +2,7 @@
 # VK Better Dating client
 
 ## Установка
-1. Установить расширение из папки chrome-extension
+1. Установить расширение из папки chrome-extension (расширения > управление расширениями > включить режим разработчика > загрузить распакованное расширение > указать путь до папки chrome_extension)
 3. Установить MongoDB https://www.mongodb.com/try/download/community
 4. Запустить MongoDB Compass и создать базу данных `test`
 5. Установить nodejs 18 версии (но 20 тоже пойдет) https://nodejs.org/en/download/

@@ -2,6 +2,7 @@ export const SMOKING_STATE = {
   yes: 'курю',
   vape: 'вейп',
   not: 'не курю',
+  ending: 'завязываю',
 };
 
 export const ALCOHOL_STATE = {
@@ -13,7 +14,8 @@ export const ALCOHOL_STATE = {
 export const KIDS_STATE = {
   yes: 'есть',
   no: 'нет',
-  childfree: 'чайлдфри',
+  child_free: 'чайлдфри',
+  no_but_want: 'нет, но хочу',
 };
 
 export const FAMILY_STATE = {

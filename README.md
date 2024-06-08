@@ -5,8 +5,8 @@
 1. Установить расширение из папки chrome-extension (расширения > управление расширениями > включить режим разработчика > загрузить распакованное расширение > указать путь до папки chrome_extension)
 3. Установить MongoDB https://www.mongodb.com/try/download/community
 4. Запустить MongoDB Compass и создать базу данных `test`
-5. Установить nodejs 18 версии (но 20 тоже пойдет) https://nodejs.org/en/download/
-6. Открыть папку проекта в любом терминале
+5. Установить nodejs как минимум 18 версии https://nodejs.org/en/download/
+6. Открыть папку проекта в терминале (с доступом к path, чтобы у вас работал npm, например git bash)
 7. Прописать `npm i -g yarn`
 8. Прописать `yarn`
 9. Прописать `yarn install-deps`

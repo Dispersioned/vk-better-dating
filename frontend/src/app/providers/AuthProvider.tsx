@@ -49,7 +49,7 @@ export function AuthProvider({ children }: ThemeProviderProps) {
     if (!isLoading) tryLogin();
   }, []);
 
-  if (isLoading || !isInited)
+  if (isLoading)
     return (
       <BaseLayout>
         <Typography variant="h2">Загрузка...</Typography>;

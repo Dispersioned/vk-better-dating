@@ -100,8 +100,14 @@ async function addHandlers(app) {
 }
 
 async function fetchAuthData(launchUrl) {
-  const authData = await authSignIn({ launchUrl });
-  return authData;
+  try {
+    const authData = await authSignIn({ launchUrl });
+    return authData;
+
+  } catch (error) {
+    console.log('ERROR AUTH', error);
+    throw error
+  }
 }
 
 async function saveLikesInfo(usersWhoLikedMe) {

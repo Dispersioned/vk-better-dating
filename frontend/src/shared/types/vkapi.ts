@@ -53,7 +53,11 @@ export type IStory = IStoryImage | IStoryVideo;
 export type IDateUserForm = {
   about: string;
   work: string;
-  education: string;
+  education?: {
+    city_id: string
+    education_id: string
+    type: string
+  };
   music: string;
   movies: string;
   books: string;

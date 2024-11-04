@@ -145,7 +145,7 @@ export function UserCard({ user, isMatch }: UserCardProps) {
               <Typography color="#888" component="span">
                 Образование:
               </Typography>{' '}
-              {user.form.education}
+              {user.form.education?.type}
             </Typography>
             <Typography>
               <Typography color="#888" component="span">

@@ -1,15 +1,25 @@
-const DATING__MINIAPP_URL = 'https://vk.com/dating';
 const KEY_MESSAGE_OPEN = 'VK_BETTER_DATING:MESSAGE_OPEN';
 
+const GLOBAL_CONFIG = {
+  url: 'https://vk.com/dating',
+  searchWord: 'vkParams',
+}
+
+
 class DomParser {
-  getVkMiniAppStartingUrlParams() {
-    const pageHTML = document.documentElement.innerHTML.toString();
-    const PARAM_KEY = 'vkParams'
-    const PARAMS_LENGTH = 338
-    const idx = pageHTML.indexOf(PARAM_KEY);
-    // 4 и 2 убирают кавычки и отступы
-    const initParams = pageHTML.slice(idx + PARAM_KEY.length + 4, idx + PARAMS_LENGTH - 2);
-    return initParams;
+  getVkParamsFromAuthorizedDatingPageHTML() {
+    const HTML = document.documentElement.innerHTML
+    const index = HTML.indexOf(GLOBAL_CONFIG.searchWord)
+
+    if (index === -1) {
+      console.log('Параметры запуска не найдены? Вы авторизованы?');
+    }
+
+    const leftIndex = HTML.indexOf("'", index + 1)
+    const rightIndex = HTML.indexOf("'", leftIndex + 1)
+
+    const vkParams = HTML.slice(leftIndex + 1, rightIndex)
+    return vkParams
   }
 }
 
@@ -19,7 +29,7 @@ class App {
   domParser = new DomParser()
 
   init() {
-    if (window.location.href.includes(DATING__MINIAPP_URL)) {
+    if (window.location.href.includes(GLOBAL_CONFIG.url)) {
       this.form.init()
       this.mount()
     }
@@ -43,7 +53,7 @@ class App {
     };
 
     const paramsNode = document.createElement('div');
-    paramsNode.textContent = this.domParser.getVkMiniAppStartingUrlParams();
+    paramsNode.textContent = this.domParser.getVkParamsFromAuthorizedDatingPageHTML();
     paramsNode.style.color = '#ddd';
     paramsNode.style.marginTop = '10px';
     paramsNode.style.wordBreak = 'break-all';
@@ -64,7 +74,7 @@ class App {
     copyButtonNode.style.backgroundColor = '#666';
     copyButtonNode.style.cursor = 'pointer';
     copyButtonNode.onclick = async () => {
-      let copyText = this.domParser.getVkMiniAppStartingUrlParams()
+      let copyText = this.domParser.getVkParamsFromAuthorizedDatingPageHTML()
       try {
         await navigator.clipboard.writeText(copyText)
         showMessage(TEXT.success)
@@ -81,10 +91,10 @@ class App {
   }
   initLocationListener() {
     window.navigation.addEventListener("navigate", (event) => {
-      if (event.destination.url.includes(DATING__MINIAPP_URL) && !event.destination.url.endsWith('vk_better_dating=true')) {
+      if (event.destination.url.includes(GLOBAL_CONFIG.url) && !event.destination.url.endsWith('vk_better_dating=true')) {
         // window.location.reload()
         // Из-за того что в вк сидят дауны со своим монолитом и кастомным staticManager необходимо сделать хардовую перезагрузку страницы, чтобы подгрузить нужные данные)
-        window.location = `${DATING__MINIAPP_URL}?vk_better_dating=true`
+        window.location = `${GLOBAL_CONFIG.url}?vk_better_dating=true`
         // this.unmount()
         // this.mount()
       }

@@ -1,8 +1,8 @@
-function injectScript(file, node) {
-  var th = document.getElementsByTagName(node)[0];
-  var s = document.createElement('script');
-  s.setAttribute('type', 'text/javascript');
-  s.setAttribute('src', file);
-  th.appendChild(s);
+function injectScriptWithAccessToDOM(scriptUrl, nodeWhereToInsert) {
+  var script = document.createElement('script');
+  script.setAttribute('type', 'text/javascript');
+  script.setAttribute('src', scriptUrl);
+  nodeWhereToInsert.appendChild(script);
 }
-injectScript(chrome.runtime.getURL('/js/injected.js'), 'body');
+
+injectScriptWithAccessToDOM(chrome.runtime.getURL('/js/injected.js'), document.querySelector('body'));

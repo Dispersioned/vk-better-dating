@@ -77,8 +77,9 @@ export function addHandlers(app) {
 
       // console.log('serialized2', serialized2.users.length);
       serialized2.users = serialized2.users.map((user) => {
-        const userDb = recommendationsCollection.items.find((item) =>
-          item.user.stories.some((story) => story.blur_url === user.photo_url)
+        const userDb = recommendationsCollection.items.find((item) => {
+          return item.user.stories.some((story) => story.blur_url === user.photo_url)
+        }
         );
 
         // console.log('userDb', userDb);

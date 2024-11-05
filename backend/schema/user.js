@@ -15,10 +15,16 @@ const artistSchema = new Schema({
   name: String,
 });
 
+const educationSchema = new Schema({
+  city_id: Number,
+  education_id: Number,
+  type: String,
+});
+
 const formSchema = new Schema({
   about: String,
   work: String,
-  education: String,
+  education: educationSchema,
   movies: String,
   books: String,
   height: Number,

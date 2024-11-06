@@ -1,3 +1,7 @@
+.footer {
+  padding: 10px 0;
+}
+
 .made_with {
   display: flex;
   align-items: center;
@@ -33,4 +37,10 @@
   .logo {
     animation: spin infinite 20s linear;
   }
+}
+
+.author_link {
+  font-size: 18px;
+  padding-inline: 3px;
+  color: rgb(68, 215, 255);
 }

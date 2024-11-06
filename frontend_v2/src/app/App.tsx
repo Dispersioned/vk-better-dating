@@ -1,16 +1,12 @@
 import '@app/css/global.css'
-import { AppLayout } from '@shared/layouts/AppLayout'
-import { Footer } from '@widgets/Footer'
+import { AppGlobalProviders } from './providers/AppGlobalProviders'
+import { AppRouter } from './router/AppRouter'
 
-function App() {
-
+export function App() {
   return (
-    <AppLayout>
-      <header>header</header>
-      <main>main</main>
-      <Footer />
-    </AppLayout>
+    <AppGlobalProviders>
+      <AppRouter />
+    </AppGlobalProviders>
   )
 }
 
-export default App

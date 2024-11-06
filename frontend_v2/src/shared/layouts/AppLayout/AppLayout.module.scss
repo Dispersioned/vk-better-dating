@@ -1,0 +1,16 @@
+.root_layout {
+  max-width: 1200px;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+.page_content {
+  // необходимо для более гибкого позиционирования контента страниц
+  display: flex;
+  flex: 1 1 100%;
+  padding: 10px 0 20px;
+}

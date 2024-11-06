@@ -77,6 +77,7 @@ export function UserCard({ user, isMatch }: UserCardProps) {
           {user.name} {user.age}
         </Typography>
         <OnlineStatus online={user.is_online} lastOnline={user.last_active_at} />
+        <Typography>{user.city_name}</Typography>
         <Location distanceMeters={user.extra.distance} canBeHidden={user.is_premium_enabled} />
         <Typography>ID: {user.id}</Typography>
         <IconButton onClick={onLike}>

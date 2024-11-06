@@ -100,6 +100,7 @@ export type IFeedUser = {
   is_deleted: boolean;
   is_blocked: boolean;
   is_online: boolean;
+  city_name?: string
   is_premium_enabled: boolean;
   last_active_at: string;
   stories: IStory[];

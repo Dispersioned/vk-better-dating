@@ -4,7 +4,7 @@ import { AppRoutes } from "../router"
 
 export const authorizedOnlyStrategy: AppRoute['guardStrategy'] = ({ user }) => {
   if (user.status === 'unauthorized') {
-    notificationService.error({ title: 'Необходимо авторизоваться' })
+    notificationService.error({ description: 'Необходимо авторизоваться' })
     return {
       redirectTo: AppRoutes.AUTH
     }

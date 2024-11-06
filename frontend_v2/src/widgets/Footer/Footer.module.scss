@@ -1,0 +1,36 @@
+.made_with {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  gap: 5px;
+}
+
+.logo {
+  height: 2em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 1em #646cffaa);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 1em #61dafbaa);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .logo {
+    animation: spin infinite 20s linear;
+  }
+}

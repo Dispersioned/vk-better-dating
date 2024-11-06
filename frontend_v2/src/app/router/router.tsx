@@ -3,11 +3,12 @@ import type { AppRoute } from "@shared/types/router";
 import { createBrowserHistory } from "history";
 import { authorizedOnlyStrategy } from "./guardStrategy/authorizedOnly.strategy";
 import { publicOnlyStrategy } from "./guardStrategy/publicOnly.strategy";
+import { SettingsPage } from "@pages/SettingsPage";
 
 export const routerHistory = createBrowserHistory({ window });
 
 export enum AppRoutes {
-  HOME = '/',
+  HOME = '/feed',
   SETTINGS = '/settings',
   MY_LIKES = '/my-likes',
   AUTH = '/auth',
@@ -25,13 +26,6 @@ function MyLikesPage() {
   return (
     <GenericLayout>
       <main>MyLikesPage</main>
-    </GenericLayout>
-  )
-}
-function SettingsPage() {
-  return (
-    <GenericLayout>
-      <main>SettingsPage</main>
     </GenericLayout>
   )
 }
@@ -55,7 +49,6 @@ export const ROUTING: AppRoute[] = [
     path: AppRoutes.MY_LIKES,
   },
   {
-    guardStrategy: authorizedOnlyStrategy,
     element: <SettingsPage />,
     path: AppRoutes.SETTINGS,
   },
